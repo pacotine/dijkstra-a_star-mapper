@@ -30,9 +30,12 @@ java -cp out/production/dijkstra-a_star-mapper/ Main
 ```
 
 ## Demo
-A\* algorithm on a complex map (you can find its configuration file [here](assets/examples/test.txt))\
-[test.mov](assets/demo/test.mov)
+A\* algorithm on a complex map (you can find its configuration file [here](assets/examples/test.txt))
+
+https://github.com/user-attachments/assets/e1b0382c-7619-41cf-b10b-c025f00e2edd
 
 Plain text color names (`red`, `green`, etc.) dans color codes in hexadecimal format (`#FF1EA3`, `222`) are supported. 
-This makes your maps even more *beautiful*, like this heart (configuration file [here](assets/examples/heart.txt)).\
-[heart.mov](assets/demo/heart.mov)
+This makes your maps even more *beautiful*, like this heart (configuration file [here](assets/examples/heart.txt)).
+
+https://github.com/user-attachments/assets/19b4aedb-4b32-42f6-9caf-813eb8cb899d
+
