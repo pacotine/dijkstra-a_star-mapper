@@ -1,5 +1,8 @@
+package instances;
+
+import model.WeightedGraph;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class DijkstraInstance extends PathFinderInstance {

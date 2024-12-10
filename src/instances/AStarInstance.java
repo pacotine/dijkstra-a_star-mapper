@@ -1,8 +1,11 @@
-import javax.sound.midi.SysexMessage;
+package instances;
+
+import model.WeightedGraph;
+
 import java.util.*;
 
 public class AStarInstance extends PathFinderInstance {
-    private int mapSize;
+    private final int mapSize;
     public AStarInstance(WeightedGraph graph, int mapSize) {
         super(graph);
         this.mapSize = mapSize;

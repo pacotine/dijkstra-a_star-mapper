@@ -1,14 +1,24 @@
-import javax.swing.*;
+package gui;
+
+import instances.AStarInstance;
+import instances.DijkstraInstance;
+import instances.PathFinderInstance;
+import model.WeightedGraph;
+
+import javax.swing.JComponent;
 import javax.swing.Timer;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.BasicStroke;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
-import java.util.*;
+import java.util.HashMap;
 import java.util.List;
 
 public class Map extends JComponent {
-    private static final int DELAY = 3000; //ms
+    private static final int DELAY = 1000; //ms, default: 1000ms
     private static final int TIMER = 10; //ms, default : 10ms
     private static final Color PATH_COLOR = Color.BLACK;
     private static final Color CURRENT_VERTEX_COLOR = Color.ORANGE;
@@ -100,35 +110,6 @@ public class Map extends JComponent {
         }
     }
 
-    /*
-    if(this.graph == null) return;
-        DijkstraInstance dijkstra = new DijkstraInstance(graph);
-
-        double pathTime = dijkstra.searchPath(start, end);
-        HashMap<Integer, WeightedGraph.Vertex> delays = dijkstra.getDelays();
-        List<WeightedGraph.Vertex> path = dijkstra.getPath();
-
-        int p = 0;
-        for(int i = 0; i<graph.getVertices().size(); i++) {
-            WeightedGraph.Vertex u = delays.get(i);
-            if(u != null) {
-                Timer dispatch = new Timer(DELAY + i * TIMER, evt -> {
-                    update(u);
-                });
-                p++;
-                dispatch.setRepeats(false);
-                dispatch.start();
-            }
-        }
-
-        Timer pathDispatch = new Timer(DELAY+p*TIMER, evt -> {
-            drawPath(path);
-        });
-        pathDispatch.setRepeats(false);
-        pathDispatch.start();
-
-        System.out.println("Best path in : " + pathTime);
-     */
     public void showDijkstra() {
         showPathFinder(new DijkstraInstance(graph));
     }
@@ -148,33 +129,18 @@ public class Map extends JComponent {
         for(int i = 0; i<graph.getVertices().size(); i++) {
             WeightedGraph.Vertex u = delays.get(i);
             if(u != null) {
-                Timer dispatch = new Timer(DELAY + i * TIMER, evt -> {
-                    update(u);
-                });
+                Timer dispatch = new Timer(DELAY + i * TIMER, evt -> update(u));
                 p++;
                 dispatch.setRepeats(false);
                 dispatch.start();
             }
         }
 
-        Timer pathDispatch = new Timer(DELAY+p*TIMER, evt -> {
-            drawPath(path);
-        });
+        Timer pathDispatch = new Timer(DELAY+p*TIMER, evt -> drawPath(path));
         pathDispatch.setRepeats(false);
         pathDispatch.start();
 
         System.out.println("Best path in : " + pathTime);
-    }
-
-    private void createResultWindow(double pathTime) {
-        JFrame resultWindow = new JFrame("Result");
-        JLabel label = new JLabel("Best path in : " + pathTime);
-        label.setFont(new Font("Calibri", Font.BOLD, 40));
-        resultWindow.setSize(400,400);
-        resultWindow.setLayout(new BorderLayout());
-        resultWindow.add(label);
-        resultWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        resultWindow.setVisible(true);
     }
 
     private void drawPath(List<WeightedGraph.Vertex> path) {

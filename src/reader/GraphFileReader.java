@@ -1,3 +1,7 @@
+package reader;
+
+import model.WeightedGraph;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -136,22 +140,5 @@ public class GraphFileReader {
             scanner.nextLine();
             lines--;
         }
-    }
-
-    public static boolean isValidHexadecimalColor(String color)
-    {
-        if(color.charAt(0) != '#')
-            return false;
-
-        if(!(color.length() == 4 || color.length() == 7))
-            return false;
-
-        for(int i = 1; i < color.length(); i++)
-            if (!((color.charAt(i) >= '0' && color.charAt(i) <= 9)
-                    || (color.charAt(i) >= 'a' && color.charAt(i) <= 'f')
-                    || (color.charAt(i) >= 'A' || color.charAt(i) <= 'F')))
-                return false;
-
-        return true;
     }
 }

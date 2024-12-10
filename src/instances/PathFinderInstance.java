@@ -1,3 +1,7 @@
+package instances;
+
+import model.WeightedGraph;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,5 +35,5 @@ public abstract class PathFinderInstance {
         path.add(start);
     }
 
-    protected abstract double searchPath(WeightedGraph.Vertex start, WeightedGraph.Vertex end);
+    public abstract double searchPath(WeightedGraph.Vertex start, WeightedGraph.Vertex end);
 }

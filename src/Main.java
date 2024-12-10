@@ -1,3 +1,7 @@
+import gui.Map;
+import model.WeightedGraph;
+import reader.GraphFileReader;
+
 import javax.swing.*;
 import java.awt.*;
 
