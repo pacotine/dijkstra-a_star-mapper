@@ -64,3 +64,10 @@ This makes your maps even more *beautiful*, like this heart (configuration file 
 
 https://github.com/user-attachments/assets/19b4aedb-4b32-42f6-9caf-813eb8cb899d
 
+A* algorithm is more suitable for mazes than Dijkstra, as it has a heuristic that doesn't overestimate distance (here, the heuristic chosen is Euclidian distance). 
+In fact, A* is an extension of Dijkstra's algorithm.
+
+https://github.com/user-attachments/assets/585484d4-e688-4cba-9453-f8ae3cb53168
+
+
+
