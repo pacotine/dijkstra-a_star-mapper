@@ -68,7 +68,7 @@ https://github.com/user-attachments/assets/367f3c07-f325-4736-a7d8-758eead742d5
 Plain text color names (`red`, `green`, etc.) and color codes in hexadecimal format (`#FF1EA3`, `222`) are supported. 
 This makes your maps even more *beautiful*, like this heart (configuration file [here](assets/examples/heart.txt)).
 
-https://github.com/user-attachments/assets/19b4aedb-4b32-42f6-9caf-813eb8cb899d
+https://github.com/user-attachments/assets/f6b49658-d662-4d29-8f66-740b66b601ef
 
 #### Maze
 A* algorithm is more suitable for mazes than Dijkstra, as it has a heuristic that doesn't overestimate distance (here, the heuristic chosen is Euclidian distance). 
