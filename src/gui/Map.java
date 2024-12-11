@@ -18,11 +18,11 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Map extends JComponent {
-    private static final int DELAY = 1000; //ms, default: 1000ms
-    private static final int TIMER = 10; //ms, default: 10ms
+    private static final int DELAY = 3000; //ms, default: 1000ms
+    private static final int TIMER = 70; //ms, default: 10ms
     private static final Color PATH_COLOR = Color.RED; //default: black
-    private static final Color CURRENT_VERTEX_COLOR = Color.MAGENTA; //default: orange
-    private static final Color PREVIOUS_PATH_COLOR = Color.BLACK; //default: black
+    private static final Color CURRENT_VERTEX_COLOR = Color.GREEN; //default: orange
+    private static final Color PREVIOUS_PATH_COLOR = Color.ORANGE; //default: black
     private static final Color START_VERTEX_COLOR = Color.RED; //default: white
     private static final Color END_VERTEX_COLOR = Color.BLUE; //default: blue
 
