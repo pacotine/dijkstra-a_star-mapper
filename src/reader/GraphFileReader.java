@@ -73,14 +73,14 @@ public class GraphFileReader {
             for(int col = 0; col < columns; col++) {
                 int current = line * columns + col;
                 WeightedGraph.Vertex v = vertices.get(current);
-                if(line < lines-1 && col < columns-1) v.addNeighbor(vertices.get((line+1)*columns+(col+1)));
-                if(line < lines-1) v.addNeighbor(vertices.get((line+1)*columns+(col)));
-                if(col > 0 && line < lines-1) v.addNeighbor(vertices.get((line+1)*columns+(col-1)));
-                if(col < columns-1) v.addNeighbor(vertices.get((line)*columns+(col+1)));
-                if(col > 0) v.addNeighbor(vertices.get((line)*columns+(col-1)));
-                if(line > 0 && col < columns-1) v.addNeighbor(vertices.get((line-1)*columns+(col+1)));
-                if(line > 0 && col > 0) v.addNeighbor(vertices.get((line-1)*columns+(col-1)));
-                if(line > 0) v.addNeighbor(vertices.get((line-1)*columns+(col)));
+                if(line < lines-1 && col < columns-1) v.addNeighbor(vertices.get((line+1)*columns+(col+1)), true);
+                if(line < lines-1) v.addNeighbor(vertices.get((line+1)*columns+(col)), false);
+                if(col > 0 && line < lines-1) v.addNeighbor(vertices.get((line+1)*columns+(col-1)), true);
+                if(col < columns-1) v.addNeighbor(vertices.get((line)*columns+(col+1)), false);
+                if(col > 0) v.addNeighbor(vertices.get((line)*columns+(col-1)), false);
+                if(line > 0 && col < columns-1) v.addNeighbor(vertices.get((line-1)*columns+(col+1)), true);
+                if(line > 0 && col > 0) v.addNeighbor(vertices.get((line-1)*columns+(col-1)), true);
+                if(line > 0) v.addNeighbor(vertices.get((line-1)*columns+(col)), false);
             }
         }
     }

@@ -11,7 +11,8 @@ public class WeightedGraph {
     public static class Vertex {
         private final int n;
         private final Type type;
-        private final ArrayList<Vertex> neighbors;
+        private final List<Vertex> neighbors;
+        private final List<Vertex> diagonalNeighbors;
         private double timeFromSource;
         private Vertex previous;
 
@@ -19,10 +20,12 @@ public class WeightedGraph {
             this.n = n;
             this.type = type;
             this.neighbors = new ArrayList<>();
+            this.diagonalNeighbors = new ArrayList<>();
         }
 
-        public void addNeighbor(Vertex neighbor) {
+        public void addNeighbor(Vertex neighbor, boolean isDiagonal) {
             neighbors.add(neighbor);
+            if(isDiagonal) diagonalNeighbors.add(neighbor);
         }
 
         public int getN() {
@@ -41,7 +44,7 @@ public class WeightedGraph {
             this.timeFromSource = timeFromSource;
         }
 
-        public ArrayList<Vertex> getNeighbors() {
+        public List<Vertex> getNeighbors() {
             return neighbors;
         }
 
@@ -52,6 +55,8 @@ public class WeightedGraph {
         public void setPrevious(Vertex previous) {
             this.previous = previous;
         }
+
+        public List<Vertex> getDiagonalNeighbors() { return diagonalNeighbors; }
 
         @Override
         public String toString() {

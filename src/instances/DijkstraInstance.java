@@ -32,7 +32,8 @@ public class DijkstraInstance extends PathFinderInstance {
             for(WeightedGraph.Vertex neighbor : u.getNeighbors()) {
                 double neighborTime = neighbor.getTimeFromSource();
                 double currentTime = u.getTimeFromSource();
-                double weight = (double)(neighbor.getType().value() + u.getType().value())/2;
+                double factor = u.getDiagonalNeighbors().contains(neighbor) ? Math.sqrt(2) : 2.0;
+                double weight = (double)(neighbor.getType().value() + u.getType().value())/factor;
                 if(neighborTime > currentTime + weight) {
                     //System.out.println("update : (" + neighbor.getType().value() + "+" + u.getType().value() + ")/2 = " + weight);
                     neighbor.setTimeFromSource(currentTime+weight);
