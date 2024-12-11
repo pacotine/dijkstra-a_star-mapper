@@ -29,6 +29,31 @@ javac -d out/production/dijkstra-a_star-mapper/ src/**/*.java
 java -cp out/production/dijkstra-a_star-mapper/ Main
 ```
 
+## Map configuration
+The map description must be given in a file with a precise format. Examples are available [here](assets/examples).
+Sections are marked with `==` on either side of their name (like `==this==`). Subsections are marked with
+only one `=` on both sides of their name (like `=that=`).
+- The first line indicates the beginning of the first section `metadata`. 
+Metadata ara the values used to initialize and configure the map.
+  - On the second line is indicated the beginning of the subsection `size`.
+    The values specified in the next 2 lines represent the map size.
+    - `nlines` is the number of pixel lines in the map. Let's note this number $l$.
+    - `ncol` is the number of pixel columns in the map. Let's note this number $c$.
+  - On the fifth line is indicated the beginning of the subsection `types`.
+  The next lines will be a succession of keywords associated with integer numerical values, 
+  followed by a color name just below. This is the configuration of the weight of each vertex
+  (in more graphics and non-technicals terms, this represents the time it takes to traverse each
+  type of surface, such as water, earth, sand, etc., see a [surface example](assets/examples/test.txt)) and their associated color.
+    - `[a-zA-Z] = integer` then, on the next line, the `color name` 
+    (common english names and hexadecimal codes are both supported)
+- The second section is called `graph`. The $l$ lines following its declaration are the most important, as they provide
+the very structure of the graph (i.e. the way the map will look).
+  - On each line $l_i$ with $i \in \{0, \dots, l\}$, there must be **exactly** $c$ characters, so that the vertex at $(x,y)$ on the map is the character
+  in line $x$ and position $y$ on that line. This vertex will be the $x \times c + y$ vertex of the graph.
+- The last section, called `path`, configures the start point and the end point.
+  - `start = xs,ys` with $x_s < l$ and $y_s < c$.
+  - `finish = xf,yf` with $x_f < l$, $y_f < c$ and $(x_f, y_f) \neq (x_s, y_s)$.
+
 ## Demo
 A\* algorithm on a complex map (you can find its configuration file [here](assets/examples/test.txt))
 
