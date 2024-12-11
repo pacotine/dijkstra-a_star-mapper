@@ -8,7 +8,7 @@ import java.awt.*;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        GraphFileReader graphFileReader = new GraphFileReader("assets/examples/test.txt");
+        GraphFileReader graphFileReader = new GraphFileReader("assets/examples/maze.txt");
         graphFileReader.read();
 
         WeightedGraph weightedGraph = graphFileReader.retrieveGraph();

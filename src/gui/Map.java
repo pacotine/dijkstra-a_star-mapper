@@ -19,12 +19,12 @@ import java.util.List;
 
 public class Map extends JComponent {
     private static final int DELAY = 1000; //ms, default: 1000ms
-    private static final int TIMER = 10; //ms, default : 10ms
-    private static final Color PATH_COLOR = Color.BLACK;
-    private static final Color CURRENT_VERTEX_COLOR = Color.ORANGE;
-    private static final Color PREVIOUS_PATH_COLOR = Color.BLACK;
-    private static final Color START_VERTEX_COLOR = Color.WHITE;
-    private static final Color END_VERTEX_COLOR = Color.BLUE;
+    private static final int TIMER = 100; //ms, default: 10ms
+    private static final Color PATH_COLOR = Color.RED; //default: black
+    private static final Color CURRENT_VERTEX_COLOR = Color.GREEN; //default: orange
+    private static final Color PREVIOUS_PATH_COLOR = Color.ORANGE; //default: black
+    private static final Color START_VERTEX_COLOR = Color.RED; //default: white
+    private static final Color END_VERTEX_COLOR = Color.BLUE; //default: blue
 
     private final WeightedGraph graph;
     private final int pixelSize;
@@ -43,7 +43,7 @@ public class Map extends JComponent {
     }
 
     @Override
-    public void paint(Graphics g) {
+    public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.cyan);
         g2.fill(new Rectangle2D.Double(0,0,columns*pixelSize, lines*pixelSize));
@@ -108,6 +108,7 @@ public class Map extends JComponent {
                 g2.draw(new Line2D.Double(x*this.pixelSize+p, y*this.pixelSize+p, x2*this.pixelSize+p,y2*this.pixelSize+p));
             }
         }
+        this.getToolkit().sync();
     }
 
     public void showDijkstra() {
