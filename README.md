@@ -55,15 +55,22 @@ the very structure of the graph (i.e. the way the map will look).
   - `finish = xf,yf` with $x_f < l$, $y_f < c$ and $(x_f, y_f) \neq (x_s, y_s)$.
 
 ## Demo
+#### World
 A\* algorithm on a complex map (you can find its configuration file [here](assets/examples/test.txt))
 
-https://github.com/user-attachments/assets/e1b0382c-7619-41cf-b10b-c025f00e2edd
+https://github.com/user-attachments/assets/58d5a5e9-87a7-4c41-80c3-213cd0fd3a35
 
-Plain text color names (`red`, `green`, etc.) dans color codes in hexadecimal format (`#FF1EA3`, `222`) are supported. 
+And Dijkstra's algorithm on the same map
+
+https://github.com/user-attachments/assets/367f3c07-f325-4736-a7d8-758eead742d5
+
+#### Heart
+Plain text color names (`red`, `green`, etc.) and color codes in hexadecimal format (`#FF1EA3`, `222`) are supported. 
 This makes your maps even more *beautiful*, like this heart (configuration file [here](assets/examples/heart.txt)).
 
-https://github.com/user-attachments/assets/19b4aedb-4b32-42f6-9caf-813eb8cb899d
+https://github.com/user-attachments/assets/f6b49658-d662-4d29-8f66-740b66b601ef
 
+#### Maze
 A* algorithm is more suitable for mazes than Dijkstra, as it has a heuristic that doesn't overestimate distance (here, the heuristic chosen is Euclidian distance). 
 In fact, A* is an extension of Dijkstra's algorithm.
 
