@@ -48,7 +48,7 @@ Metadata ara the values used to initialize and configure the map.
     (common english names and hexadecimal codes are both supported)
 - The second section is called `graph`. The $l$ lines following its declaration are the most important, as they provide
 the very structure of the graph (i.e. the way the map will look).
-  - On each line $l_i$ with $i \in \{0, \dots, l\}$, there must be **exactly** $c$ characters, so that the vertex at $(x,y)$ on the map is the character
+  - On each line $l_i$ with $`i \in \{0, \dots, l \}`$, there must be **exactly** $c$ characters, so that the vertex at $(x,y)$ on the map is the character
   in line $x$ and position $y$ on that line. This vertex will be the $x \times c + y$ vertex of the graph.
 - The last section, called `path`, configures the start point and the end point.
   - `start = xs,ys` with $x_s < l$ and $y_s < c$.
