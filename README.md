@@ -22,11 +22,26 @@ so no additional installations are required.
 3. This project is platform-independent and can run on any OS that support JDK 16+, such as Windows, macOS or Linux.
 
 ## Build and Execution
-- Ensure your `PATH` environment variable includes the JDK `bin` directory for command-line compilation and execution.
-- Use the following commands to compile and run the project:
+*Ensure your `PATH` environment variable includes the JDK `bin` directory for command-line compilation and execution.*
+
+Use the following commands to compile and run the project:
 ```bash
-javac -d out/production/dijkstra-a_star-mapper/ src/**/*.java
-java -cp out/production/dijkstra-a_star-mapper/ Main
+java -jar dijkstra-a_star-mapper.jar <map_type> <path> [path_finder] [options]
+```            
+where:
+```text
+<map_type> includes
+image           to set the program to image mode (<path> will then be the path to the image file)
+config          to set the program to config mode (<path> will then be the path to the map configuration file)
+
+<path> is the path to the map source file, according to the mode (see <map_type>)
+
+[path_finder] includes
+--dijkstra      use Dijkstra's algorithm on this map
+--a-star        use A* algorithm on this map (this is the default [path_finder] set)
+
+[options] includes
+--no-animation  deactivate search animation before displaying the path found
 ```
 
 ## Map configuration
@@ -72,7 +87,7 @@ This makes your maps even more *beautiful*, like this heart (configuration file 
 https://github.com/user-attachments/assets/f6b49658-d662-4d29-8f66-740b66b601ef
 
 #### Maze
-A* algorithm is more suitable for mazes than Dijkstra, as it has a heuristic that doesn't overestimate distance (here, the heuristic chosen is Euclidian distance). 
+A* algorithm is more suitable for mazes than Dijkstra, as it has a heuristic that doesn't overestimate distance (here, the heuristic chosen is Euclidean distance). 
 In fact, A* is an extension of Dijkstra's algorithm.
 
 https://github.com/user-attachments/assets/585484d4-e688-4cba-9453-f8ae3cb53168
@@ -80,7 +95,7 @@ https://github.com/user-attachments/assets/585484d4-e688-4cba-9453-f8ae3cb53168
 ### Image-map reader
 #### Mona Lisa
 Images contain RGB-colored pixels that can be converted to HSB/HSV in order to obtain the *brightness* of a pixel. 
-Then each pixel reprents a vertex of a valuated graph whose edges have as their value the intensity difference between pixels.\
+Then each pixel represents a vertex of a valuated graph whose edges have as their value the intensity difference between pixels.\
 Here you can see a black and white image of Mona Lisa (`256x387`) and A* algorithm searching for the shortest path (the *most enlightened* path) between the top-left corner to the bottom-right corner.
 
 https://github.com/user-attachments/assets/65010f9a-74ff-49d5-a1f8-33c9fc8d2837
@@ -92,6 +107,6 @@ Enjoy the result.
 The intensity difference between pixels is defined by the *brightness* value of a pixel. HSV/HSB brightness (or value) term is defined as an "attribute of a visual sensation according to which an area appears to emit more or less light". In the image below, you can see that the intensity of brightness doesn't depend on the color, but on the luminous value of that color.\
 The darker blue at bottom left will have a higher (vertex) value than the lighter blue at top right, which is why the path found is this one. 
 
-![brightness](https://github.com/user-attachments/assets/d7ad75d9-00fd-4c44-951a-f801d652121a)
+![](https://github.com/user-attachments/assets/d7ad75d9-00fd-4c44-951a-f801d652121a)
 
 

@@ -1,5 +1,6 @@
 package main.gui;
 
+import main.Main;
 import main.model.WeightedGraph;
 import main.reader.GraphFileReader;
 import main.reader.GraphImageReader;
@@ -34,7 +35,7 @@ public class Window {
             
             [options] includes
             --no-animation  deactivate search animation before displaying the path found
-            """, getVersionFromManifest());
+            """, Main.getVersionFromManifest());
 
     public enum MapArgument {
         IMAGE("image"),
@@ -163,10 +164,5 @@ public class Window {
         window.pack();
         window.setResizable(false);
         window.setVisible(true);
-    }
-
-    private static String getVersionFromManifest() {
-        String version = Window.class.getPackage().getImplementationVersion();
-        return version == null ? "built from source" : version;
     }
 }
