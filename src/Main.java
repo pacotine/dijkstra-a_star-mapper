@@ -1,6 +1,4 @@
-import gui.Window;
-
-import java.util.Arrays;
+import main.gui.Window;
 
 public class Main {
 

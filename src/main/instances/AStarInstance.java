@@ -1,6 +1,6 @@
-package instances;
+package main.instances;
 
-import model.WeightedGraph;
+import main.model.WeightedGraph;
 
 import java.util.*;
 

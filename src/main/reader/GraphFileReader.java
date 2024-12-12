@@ -1,6 +1,6 @@
-package reader;
+package main.reader;
 
-import model.WeightedGraph;
+import main.model.WeightedGraph;
 
 import java.io.FileNotFoundException;
 import java.util.HashMap;

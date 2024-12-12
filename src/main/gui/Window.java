@@ -1,14 +1,41 @@
-package gui;
+package main.gui;
 
-import model.WeightedGraph;
-import reader.GraphFileReader;
-import reader.GraphImageReader;
-import reader.GraphReader;
+import main.model.WeightedGraph;
+import main.reader.GraphFileReader;
+import main.reader.GraphImageReader;
+import main.reader.GraphReader;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Window {
+    private static final String HELP_MESSAGE = String.format(
+            """
+            ~ Dijkstra/A* Mapper launcher ~
+            ====
+            Author: Guilford
+            Repository: https://github.com/pacotine/dijkstra-a_star-mapper
+            Version: %s
+            ====
+            
+            Usage: java -jar dijkstra-a_star-mapper.jar <map_type> <path> [path_finder] [options]
+            
+            where:
+            
+            <map_type> includes
+            image           to set the program to image mode (<path> will then be the path to the image file)
+            config          to set the program to config mode (<path> will then be the path to the map configuration file)
+            
+            <path> is the path to the map source file, according to the mode (see <map_type>)
+            
+            [path_finder] includes
+            --dijkstra      use Dijkstra's algorithm on this map
+            --a-star        use A* algorithm on this map (this is the default [path_finder] set)
+            
+            [options] includes
+            --no-animation  deactivate search animation before displaying the path found
+            """, getVersionFromManifest());
+
     public enum MapArgument {
         IMAGE("image"),
         CONFIG("config");
@@ -33,7 +60,7 @@ public class Window {
 
     public enum PathFinderArgument {
         DIJKSTRA("--dijkstra"),
-        A_STAR("--astar");
+        A_STAR("--a-star");
 
         private final String arg;
         PathFinderArgument(String arg) {
@@ -103,6 +130,10 @@ public class Window {
 
     private void init(String[] args) {
         int l = args.length;
+        if(l == 1 && args[0].equals("--help")) {
+            System.out.println(HELP_MESSAGE);
+            System.exit(0);
+        }
         try {
             this.mapType = MapArgument.of(args[0]);
             if(mapType == null) throw new IllegalArgumentException("unknown map type argument '" + args[0] + "'");
@@ -120,6 +151,7 @@ public class Window {
             } else this.showAnimation = true;
         } catch(ArrayIndexOutOfBoundsException ai) {
             System.err.println("missing argument");
+            System.out.println();
         }
     }
 
@@ -131,5 +163,10 @@ public class Window {
         window.pack();
         window.setResizable(false);
         window.setVisible(true);
+    }
+
+    private static String getVersionFromManifest() {
+        String version = Window.class.getPackage().getImplementationVersion();
+        return version == null ? "built from source" : version;
     }
 }

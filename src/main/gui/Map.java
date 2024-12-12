@@ -1,9 +1,9 @@
-package gui;
+package main.gui;
 
-import instances.AStarInstance;
-import instances.DijkstraInstance;
-import instances.PathFinderInstance;
-import model.WeightedGraph;
+import main.instances.AStarInstance;
+import main.instances.DijkstraInstance;
+import main.instances.PathFinderInstance;
+import main.model.WeightedGraph;
 
 import javax.swing.JComponent;
 import javax.swing.Timer;
