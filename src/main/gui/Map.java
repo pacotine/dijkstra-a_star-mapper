@@ -1,9 +1,9 @@
-package gui;
+package main.gui;
 
-import instances.AStarInstance;
-import instances.DijkstraInstance;
-import instances.PathFinderInstance;
-import model.WeightedGraph;
+import main.instances.AStarInstance;
+import main.instances.DijkstraInstance;
+import main.instances.PathFinderInstance;
+import main.model.WeightedGraph;
 
 import javax.swing.JComponent;
 import javax.swing.Timer;
@@ -111,15 +111,14 @@ public class Map extends JComponent {
         this.getToolkit().sync();
     }
 
-    public void showDijkstra() {
-        showPathFinder(new DijkstraInstance(graph));
+    public void display(Window.PathFinderArgument pathFinderType, boolean showAnimation) {
+        switch(pathFinderType) {
+            case A_STAR -> showPathFinder(new AStarInstance(graph, columns), showAnimation);
+            case DIJKSTRA -> showPathFinder(new DijkstraInstance(graph), showAnimation);
+        }
     }
 
-    public void showAStar() {
-        showPathFinder(new AStarInstance(graph, columns));
-    }
-
-    private void showPathFinder(PathFinderInstance pathFinderInstance) {
+    private void showPathFinder(PathFinderInstance pathFinderInstance, boolean showAnimation) {
         if(this.graph == null) return;
 
         double pathTime = pathFinderInstance.searchPath(start, end);
@@ -127,13 +126,15 @@ public class Map extends JComponent {
         List<WeightedGraph.Vertex> path = pathFinderInstance.getPath();
 
         int p = 0;
-        for(int i = 0; i<graph.getVertices().size(); i++) {
-            WeightedGraph.Vertex u = delays.get(i);
-            if(u != null) {
-                Timer dispatch = new Timer(DELAY + i * TIMER, evt -> update(u));
-                p++;
-                dispatch.setRepeats(false);
-                dispatch.start();
+        if(showAnimation) {
+            for (int i = 0; i < graph.getVertices().size(); i++) {
+                WeightedGraph.Vertex u = delays.get(i);
+                if (u != null) {
+                    Timer dispatch = new Timer(DELAY + i * TIMER, evt -> update(u));
+                    p++;
+                    dispatch.setRepeats(false);
+                    dispatch.start();
+                }
             }
         }
 

@@ -1,6 +1,6 @@
-package instances;
+package main.instances;
 
-import model.WeightedGraph;
+import main.model.WeightedGraph;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +28,7 @@ public abstract class PathFinderInstance {
     protected void retrievePath(WeightedGraph.Vertex start, WeightedGraph.Vertex end) {
         WeightedGraph.Vertex s = end;
         while(s != start) {
-            System.out.println(s);
+            //System.out.println(s);
             path.add(s);
             s = s.getPrevious();
         }

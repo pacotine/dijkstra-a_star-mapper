@@ -1,6 +1,6 @@
-package instances;
+package main.instances;
 
-import model.WeightedGraph;
+import main.model.WeightedGraph;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,11 @@ public class DijkstraInstance extends PathFinderInstance {
         }
         start.setTimeFromSource(0);
         int i = 0;
+        //https://www.cs.cmu.edu/~15381-s19/recitations/rec2/rec2_sol.pdf
         while(Q.contains(end)) {
+            //Dijkstra is worse than A*, especially if the heuristic of A* is a good one
+            if(i%10000 == 0) System.out.println("searching..." +
+                    " up to ~" + (1.0-(double)i/(double)this.graph.getVertices().size())*100.0 + "% remaining"); //max n
             WeightedGraph.Vertex u = findMin(Q);
             delays.put(i, u);
             //System.out.println("min : " + u);

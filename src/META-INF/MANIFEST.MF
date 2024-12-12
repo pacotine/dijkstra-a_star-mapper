@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Created-By: Guilford
+Main-Class: main.Main
+
+Name: main/
+Implementation-Version: 1.0
+
+
