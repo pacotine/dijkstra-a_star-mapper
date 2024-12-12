@@ -118,7 +118,7 @@ public class Window {
         WeightedGraph.Vertex start = graphReader.retrieveStart();
         WeightedGraph.Vertex end = graphReader.retrieveEnd();
 
-        System.out.println(weightedGraph);
+        //System.out.println(weightedGraph);
         System.out.println("start : " + start);
         System.out.println("end : " + end);
         System.out.println("map size : " + lines + " x " + columns);

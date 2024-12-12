@@ -25,7 +25,7 @@ public class GraphFileReader extends GraphReader {
         this.columns = retrieveInt("ncol");
         skip(1);
         Map<Character, WeightedGraph.Type> types = retrieveTypes();
-        System.out.println(types);
+        //System.out.println(types);
         this.weightedGraph = new WeightedGraph();
         setVertices(types);
         setNeighbors();
