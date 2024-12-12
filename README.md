@@ -88,6 +88,10 @@ https://github.com/user-attachments/assets/65010f9a-74ff-49d5-a1f8-33c9fc8d2837
 Enjoy the result.
 ![](https://github.com/user-attachments/assets/eb24148f-0a0b-4390-b344-5035d2a03f67)
 
+#### Colors & Brightness
+The intensity difference between pixels is defined by the *brightness* value of a pixel. HSV/HSB brightness (or value) term is defined as an "attribute of a visual sensation according to which an area appears to emit more or less light". In the image below, you can see that the intensity of brightness doesn't depend on the color, but on the luminous value of that color.\
+The darker blue at bottom left will have a higher (vertex) value than the lighter blue at top right, which is why the path found is this one. 
 
+![brightness](https://github.com/user-attachments/assets/d7ad75d9-00fd-4c44-951a-f801d652121a)
 
 
