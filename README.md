@@ -55,6 +55,7 @@ the very structure of the graph (i.e. the way the map will look).
   - `finish = xf,yf` with $x_f < l$, $y_f < c$ and $(x_f, y_f) \neq (x_s, y_s)$.
 
 ## Demo
+### Text-map reader
 #### World
 A\* algorithm on a complex map (you can find its configuration file [here](assets/examples/test.txt))
 
@@ -76,5 +77,21 @@ In fact, A* is an extension of Dijkstra's algorithm.
 
 https://github.com/user-attachments/assets/585484d4-e688-4cba-9453-f8ae3cb53168
 
+### Image-map reader
+#### Mona Lisa
+Images contain RGB-colored pixels that can be converted to HSB/HSV in order to obtain the *brightness* of a pixel. 
+Then each pixel reprents a vertex of a valuated graph whose edges have as their value the intensity difference between pixels.\
+Here you can see a black and white image of Mona Lisa (`256x387`) and A* algorithm searching for the shortest path (the *most enlightened* path) between the top-left corner to the bottom-right corner.
+
+https://github.com/user-attachments/assets/65010f9a-74ff-49d5-a1f8-33c9fc8d2837
+
+Enjoy the result.
+![](https://github.com/user-attachments/assets/eb24148f-0a0b-4390-b344-5035d2a03f67)
+
+#### Colors & Brightness
+The intensity difference between pixels is defined by the *brightness* value of a pixel. HSV/HSB brightness (or value) term is defined as an "attribute of a visual sensation according to which an area appears to emit more or less light". In the image below, you can see that the intensity of brightness doesn't depend on the color, but on the luminous value of that color.\
+The darker blue at bottom left will have a higher (vertex) value than the lighter blue at top right, which is why the path found is this one. 
+
+![brightness](https://github.com/user-attachments/assets/d7ad75d9-00fd-4c44-951a-f801d652121a)
 
 
