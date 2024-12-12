@@ -21,10 +21,16 @@ You can download the latest JDK from the [OpenJDK website](https://openjdk.org).
 so no additional installations are required.
 3. This project is platform-independent and can run on any OS that support JDK 16+, such as Windows, macOS or Linux.
 
-## Build and Execution
-*Ensure your `PATH` environment variable includes the JDK `bin` directory for command-line compilation and execution.*
+## Installation
+You can get sources and JAR for the latest release of this project 
+from the [release page](https://github.com/pacotine/dijkstra-a_star-mapper/releases).
 
-Use the following commands to compile and run the project:
+Download the archive for the version of your choice and see the [usage section](#usage).
+
+## Usage
+*Ensure your `PATH` environment variable includes the JDK `bin` directory for command-line execution.*
+
+Once you have downloaded a JAR release, use the following commands to run the program:
 ```bash
 java -jar dijkstra-a_star-mapper.jar <map_type> <path> [path_finder] [options]
 ```            
@@ -42,6 +48,10 @@ config          to set the program to config mode (<path> will then be the path 
 
 [options] includes
 --no-animation  deactivate search animation before displaying the path found
+```
+You can also display this documentation with the following command:
+```bash
+java -jar dijkstra-a_star-mapper.jar --help
 ```
 
 ## Map configuration
