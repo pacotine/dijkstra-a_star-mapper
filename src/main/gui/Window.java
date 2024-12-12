@@ -152,7 +152,8 @@ public class Window {
             } else this.showAnimation = true;
         } catch(ArrayIndexOutOfBoundsException ai) {
             System.err.println("missing argument");
-            System.out.println();
+            System.out.println("\nNeed help? Use --help to display the documentation.");
+            System.exit(0);
         }
     }
 
