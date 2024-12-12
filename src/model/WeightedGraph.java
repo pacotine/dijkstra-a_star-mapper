@@ -6,7 +6,7 @@ import java.util.List;
 public class WeightedGraph {
     private final List<Vertex> vertices;
 
-    public record Type(char name, int value, String color) {}
+    public record Type(String name, int value, String color) {}
 
     public static class Vertex {
         private final int n;

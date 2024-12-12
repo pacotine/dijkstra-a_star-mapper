@@ -1,6 +1,7 @@
 import gui.Map;
 import model.WeightedGraph;
 import reader.GraphFileReader;
+import reader.GraphImageReader;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,21 +9,22 @@ import java.awt.*;
 public class Main {
 
     public static void main(String[] args) throws Exception {
-        GraphFileReader graphFileReader = new GraphFileReader("assets/examples/maze.txt");
-        graphFileReader.read();
+        //GraphFileReader graphReader = new GraphFileReader("assets/examples/heart.txt");
+        GraphImageReader graphReader = new GraphImageReader("assets/examples/mona.png");
+        graphReader.read();
 
-        WeightedGraph weightedGraph = graphFileReader.retrieveGraph();
-        int lines = graphFileReader.retrieveLines();
-        int columns = graphFileReader.retrieveColumns();
-        WeightedGraph.Vertex start = graphFileReader.retrieveStart();
-        WeightedGraph.Vertex end = graphFileReader.retrieveEnd();
+        WeightedGraph weightedGraph = graphReader.retrieveGraph();
+        int lines = graphReader.retrieveLines();
+        int columns = graphReader.retrieveColumns();
+        WeightedGraph.Vertex start = graphReader.retrieveStart();
+        WeightedGraph.Vertex end = graphReader.retrieveEnd();
 
         System.out.println(weightedGraph);
         System.out.println("start : " + start);
         System.out.println("end : " + end);
         System.out.println("map size : " + lines + " x " + columns);
 
-        int pixelSize = (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/(columns+10));
+        int pixelSize = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()/(lines > columns ? lines+1 : columns+1));
 
         Map map = new Map(weightedGraph, pixelSize, columns, lines, start, end);
         initWindow(map, lines, columns, pixelSize);

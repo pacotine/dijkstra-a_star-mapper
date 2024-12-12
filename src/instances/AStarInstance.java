@@ -37,7 +37,6 @@ public class AStarInstance extends PathFinderInstance {
                 int y1 = u.getN() / mapSize;
                 int x2 = end.getN() % mapSize;
                 int y2 = end.getN() / mapSize;
-                System.out.println("u : (" + x1 + "," + y1 + ") | neighbor : (" + x2 + "," + y2 + ")");
                 double dist = Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2));
                 double factor = u.getDiagonalNeighbors().contains(neighbor) ? Math.sqrt(2) : 2.0;
                 double weight = (double)(neighbor.getType().value() + u.getType().value())/factor;
