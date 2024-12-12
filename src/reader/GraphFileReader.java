@@ -2,73 +2,40 @@ package reader;
 
 import model.WeightedGraph;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
-public class GraphFileReader {
-    private final File file;
+public class GraphFileReader extends GraphReader {
     private final Scanner scanner;
-    private WeightedGraph weightedGraph;
-    private WeightedGraph.Vertex start;
-    private WeightedGraph.Vertex end;
-    private int lines;
-    private int columns;
 
     public GraphFileReader(String path) throws FileNotFoundException {
-        this.file = new File(path);
+        super(path);
         this.scanner = new Scanner(file);
-        this.weightedGraph = null;
-        this.start = null;
-        this.end = null;
     }
 
+    @Override
     public void read() {
         if(!file.exists()) throw new IllegalArgumentException("Cannot read this file : it doesn't exist");
 
-        WeightedGraph weightedGraph = new WeightedGraph();
         skip(2);
         this.lines = retrieveInt("nlines");
         this.columns = retrieveInt("ncol");
         skip(1);
         Map<Character, WeightedGraph.Type> types = retrieveTypes();
         System.out.println(types);
-        setVertices(weightedGraph, lines, columns, types);
-        setNeighbors(weightedGraph.getVertices(), lines, columns);
+        this.weightedGraph = new WeightedGraph();
+        setVertices(types);
+        setNeighbors();
         skip(2);
         this.start = retrieveVertex(weightedGraph, columns, "Start");
         this.end = retrieveVertex(weightedGraph, columns, "Finish");
-
-        this.weightedGraph = weightedGraph;
     }
 
-    public WeightedGraph retrieveGraph() throws Exception {
-        if(weightedGraph == null) throw new Exception("File should be read before retrieving the graph");
-        return weightedGraph;
-    }
-
-    public WeightedGraph.Vertex retrieveStart() throws Exception {
-        if(start == null) throw new Exception("File should be read before retrieving this vertex");
-        return start;
-    }
-
-    public WeightedGraph.Vertex retrieveEnd() throws Exception {
-        if(end == null) throw new Exception("File should be read before retrieving this vertex");
-        return end;
-    }
-
-    public int retrieveLines() {
-        return lines;
-    }
-
-    public int retrieveColumns() {
-        return columns;
-    }
-
-    private void setNeighbors(List<WeightedGraph.Vertex> vertices, int lines, int columns) {
+    private void setNeighbors() {
+        List<WeightedGraph.Vertex> vertices = weightedGraph.getVertices();
         for(int line = 0; line < lines; line++) {
             for(int col = 0; col < columns; col++) {
                 int current = line * columns + col;
@@ -100,14 +67,14 @@ public class GraphFileReader {
         String line;
         while((line = scanner.nextLine()) != null && !line.equals("==Graph==")) {
             String[] args = line.split("=");
-            char typeName = args[0].charAt(0);
+            String typeName = args[0];
             String value = args.length > 1 ? args[1] : null;
             if(value == null) throw new IllegalArgumentException("No value found after " + typeName);
 
             line = scanner.nextLine();
             String color = line;
 
-            types.put(typeName, new WeightedGraph.Type(typeName, Integer.parseInt(value), color));
+            types.put(typeName.charAt(0), new WeightedGraph.Type(typeName, Integer.parseInt(value), color));
         }
 
         return types;
@@ -126,11 +93,11 @@ public class GraphFileReader {
         return G.getVertices().get(x * columns + y);
     }
 
-    private void setVertices(WeightedGraph G, int lines, int columns, Map<Character, WeightedGraph.Type> types) {
+    private void setVertices(Map<Character, WeightedGraph.Type> types) {
         for (int line=0; line < lines; line++) {
             String c = scanner.next();
             for (int col=0; col < columns; col++) {
-                G.addVertex(types.get(c.charAt(col)));
+                weightedGraph.addVertex(types.get(c.charAt(col)));
             }
         }
     }
