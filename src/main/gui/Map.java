@@ -1,5 +1,6 @@
 package main.gui;
 
+import main.gui.launcher.*;
 import main.instances.AStarInstance;
 import main.instances.DijkstraInstance;
 import main.instances.PathFinderInstance;
@@ -124,7 +125,7 @@ public class Map extends JComponent {
         this.getToolkit().sync();
     }
 
-    public void display(ArgumentsInterpreter.PathFinderArgument pathFinderType) {
+    public void display(Launcher.PathFinderArgument pathFinderType) {
         switch(pathFinderType) {
             case A_STAR -> showPathFinder(new AStarInstance(graph, columns));
             case DIJKSTRA -> showPathFinder(new DijkstraInstance(graph));

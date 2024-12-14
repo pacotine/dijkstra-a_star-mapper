@@ -1,7 +1,7 @@
-package main.gui;
+package main.gui.launcher;
 
 public class TimeField extends Field<Integer> {
-    private int min, max;
+    private final int min, max;
     public TimeField(Type type, int value, int min, int max) {
         super(type, value);
         this.min = min;

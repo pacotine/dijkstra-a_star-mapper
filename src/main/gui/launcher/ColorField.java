@@ -1,4 +1,4 @@
-package main.gui;
+package main.gui.launcher;
 
 import java.awt.*;
 

@@ -1,5 +1,6 @@
 package main.gui;
 
+import main.gui.launcher.Launcher;
 import main.model.WeightedGraph;
 import main.reader.GraphFileReader;
 import main.reader.GraphImageReader;
@@ -10,26 +11,26 @@ import java.awt.*;
 
 public class Window {
     private int width, height, pixelSize;
-    private final ArgumentsInterpreter interpreter;
+    private final Launcher launcher;
 
     public Window(String[] args) {
-        this.interpreter = new ArgumentsInterpreter(args);
+        this.launcher = new Launcher(args);
     }
 
     public void show() throws Exception {
         Map map = retrieveMap();
-        System.out.println("init. map window (" + width + "x" + height + ") of type " + interpreter.getMapType() + " for file '"
-                + interpreter.getPath() + "'" + " | " + interpreter.getPathFinderType());
+        System.out.println("init. map window (" + width + "x" + height + ") of type " + launcher.getMapType() + " for file '"
+                + launcher.getPath() + "'" + " | " + launcher.getPathFinderType());
 
         initWindow(map);
         map.repaint();
 
-        map.display(interpreter.getPathFinderType());
+        map.display(launcher.getPathFinderType());
     }
 
     private Map retrieveMap() throws Exception {
-        String path = interpreter.getPath();
-        GraphReader graphReader = switch(interpreter.getMapType()) {
+        String path = launcher.getPath();
+        GraphReader graphReader = switch(launcher.getMapType()) {
             case IMAGE -> new GraphImageReader(path);
             case CONFIG -> new GraphFileReader(path);
         };
@@ -48,12 +49,12 @@ public class Window {
         System.out.println("start : " + start);
         System.out.println("end : " + end);
         System.out.println("map size : " + lines + " x " + columns);
-        System.out.println("configuration options: " + interpreter.getOptions());
+        System.out.println("configuration options: " + launcher.getOptions());
 
         int pixelSize = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()/(lines > columns ? lines+1 : columns+1));
         this.pixelSize = pixelSize;
 
-        return new Map(weightedGraph, pixelSize, columns, lines, start, end, interpreter.getOptions());
+        return new Map(weightedGraph, pixelSize, columns, lines, start, end, launcher.getOptions());
     }
 
     private void initWindow(Map map) {

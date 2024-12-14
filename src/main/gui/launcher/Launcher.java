@@ -1,11 +1,11 @@
-package main.gui;
+package main.gui.launcher;
 
 import main.Main;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public class ArgumentsInterpreter {
+public class Launcher {
     public static final MapArgument[] ALL_MAP_TYPES = MapArgument.values();
     public static final PathFinderArgument[] ALL_PATH_FINDERS = PathFinderArgument.values();
     private static final String HELP_MESSAGE = String.format(
@@ -103,7 +103,7 @@ public class ArgumentsInterpreter {
     private PathFinderArgument pathFinderType;
     private Map<Field.Type, Field<?>> options;
 
-    public ArgumentsInterpreter(String[] args) {
+    public Launcher(String[] args) {
         init(args);
     }
 
@@ -113,14 +113,14 @@ public class ArgumentsInterpreter {
             System.out.println(HELP_MESSAGE);
             System.exit(0);
         }
+        int i = 2;
         try {
             this.mapType = MapArgument.of(args[0]);
             this.pathFinderType = PathFinderArgument.of(args[1]);
             this.path = args[2];
             this.options = new HashMap<>();
 
-            int i = 2;
-            while(i+1 < args.length) {
+            while(i+1 < l) {
                 Field.Type type = Field.Type.of(args[++i], mapType, pathFinderType);
 
                 Field<?> field = switch(type) {
@@ -139,7 +139,7 @@ public class ArgumentsInterpreter {
                 else throw new IllegalArgumentException("value '" + field.getValue() + "' is invalid for option '" + type + "'");
             }
         } catch(ArrayIndexOutOfBoundsException ai) {
-            System.err.println("missing argument");
+            System.err.println("missing argument after " + args[i-1]);
             System.out.println("\nNeed help? Use --help to display the documentation.");
             System.exit(0);
         }

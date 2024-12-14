@@ -1,4 +1,4 @@
-package main.gui;
+package main.gui.launcher;
 
 public class PointField extends Field<Integer> {
 
