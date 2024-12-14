@@ -33,14 +33,23 @@ public class ArgumentsInterpreter {
             
             [options] includes
             --start             <point>     define the starting point, where <point> is a positive integer representing the <point>-th vertex of the graph | default: 0 for <map_type>=a-star, undefined otherwise
+            
             --end               <point>     define the finish point, where <point> is a positive integer representing the <point>-th vertex of the graph | default: last vertex for <map-type>=a-star, undefined otherwise
+            
             --time              <time>      set the execution time between each vertex (<time> minimum value: 1, maximum value: 20000) | default: 10ms
+            
             --delay             <time>      set the delay before the display begins (<time> minimum value: 0, maximum value: 60000) | default: 2000ms
+            
             --start-color       <color>     set the starting point vertex color to <color>, where <color> is a hexadecimal color code | default: #FF194F
+            
             --end-color         <color>     set the finish point vertex color to <color>, where <color> is a hexadecimal color code | default: #19A3FF
+            
             --previous-color    <color>     set the previous path color to <color> for the animation, where <color> is a hexadecimal color code | default: #FF9C19
+            
             --current-color     <color>     set the current vertex color to <color> for the animation, where <color> is a hexadecimal color code | default: #8E09DB
+            
             --path-color        <color>     set the (final) path color to <color>, where <color> is a hexadecimal color code | default: #FF19A7
+            
             
             --no-animation                  deactivate search animation before displaying the path found
             """, Main.getVersionFromManifest());
