@@ -40,13 +40,13 @@ public abstract class Field<T> {
                     if(!option.getTypes().contains(type))
                         throw new IllegalArgumentException(
                                 "invalid option '" + arg + "' for map type argument '" + type + "'"
-                                        + "\nvalid options are: " +
+                                        + "\nthis option is valid for: " +
                                         option.getTypes().stream().map(Launcher.MapArgument::getArg).collect(Collectors.joining(",")
                                         ));
                     if(!option.getPathFinders().contains(pathFinder))
                         throw new IllegalArgumentException(
                                 "invalid option '" + arg + "' for pathfinder algorithm argument '" + type + "'"
-                                        + "\nvalid options are: " +
+                                        + "\nthis options is valid for: " +
                                         option.getPathFinders().stream().map(Launcher.PathFinderArgument::getArg).collect(Collectors.joining(",")
                                         ));
                     return option;
