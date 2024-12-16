@@ -45,7 +45,7 @@ public abstract class Field<T> {
                                         ));
                     if(!option.getPathFinders().contains(pathFinder))
                         throw new IllegalArgumentException(
-                                "invalid option '" + arg + "' for pathfinder algorithm argument '" + type + "'"
+                                "invalid option '" + arg + "' for pathfinder algorithm argument '" + pathFinder + "'"
                                         + "\nthis options is valid for: " +
                                         option.getPathFinders().stream().map(Launcher.PathFinderArgument::getArg).collect(Collectors.joining(",")
                                         ));

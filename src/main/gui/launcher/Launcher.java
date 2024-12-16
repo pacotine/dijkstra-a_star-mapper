@@ -1,6 +1,7 @@
 package main.gui.launcher;
 
 import main.Main;
+import main.instances.Heuristic;
 
 public class Launcher {
     public static final MapArgument[] ALL_MAP_TYPES = MapArgument.values();
@@ -95,6 +96,30 @@ public class Launcher {
         }
     }
 
+    public enum HeuristicArgument {
+        EUCLIDEAN("euclidean", Heuristic.EUCLIDEAN),
+        MANHATTAN("manhattan", Heuristic.MANHATTAN),
+        CHEBYSHEV("chebyshev", Heuristic.CHEBYSHEV);
+
+        private final String arg;
+        private final Heuristic heuristic;
+        HeuristicArgument(String arg, Heuristic heuristic) {
+            this.arg = arg;
+            this.heuristic = heuristic;
+        }
+
+        public String getArg() {return arg;}
+        public Heuristic getHeuristic() {return heuristic;}
+
+        public static Heuristic retrieveHeuristic(String arg) {
+            for(HeuristicArgument type : HeuristicArgument.values()) {
+                if(type.getArg().equalsIgnoreCase(arg)) return type.getHeuristic();
+            }
+
+            throw new IllegalArgumentException("unknown heuristic argument '" + arg + "'");
+        }
+    }
+
     private MapArgument mapType;
     private String path;
     private PathFinderArgument pathFinderType;
@@ -116,13 +141,16 @@ public class Launcher {
             this.pathFinderType = PathFinderArgument.of(args[1]);
             this.path = args[2];
             this.configuration = new Configuration();
+            if(pathFinderType == PathFinderArgument.A_STAR) {
+                configuration.set(Field.Type.HEURISTIC, new HeuristicField(mapType));
+            } //by default, auto
 
             while(i+1 < l) {
                 Field.Type type = Field.Type.of(args[++i], mapType, pathFinderType);
 
                 Field<?> field = switch(type) {
                     case START, END -> new PointField(args[++i]);
-                    case HEURISTIC -> null; //TODO
+                    case HEURISTIC -> new HeuristicField(mapType, HeuristicArgument.retrieveHeuristic(args[++i]));
                     case TIME -> new TimeField(args[++i], 1, 20_000);
                     case DELAY -> new TimeField(args[++i], 0, 60_000);
                     case START_VERTEX_COLOR,
