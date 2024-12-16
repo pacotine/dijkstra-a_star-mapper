@@ -1,5 +1,6 @@
 package main.gui;
 
+import main.gui.launcher.*;
 import main.instances.AStarInstance;
 import main.instances.DijkstraInstance;
 import main.instances.PathFinderInstance;
@@ -18,28 +19,32 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Map extends JComponent {
-    private static final int DELAY = 3000; //ms, default: 1000ms
-    private static final int TIMER = 70; //ms, default: 10ms
-    private static final Color PATH_COLOR = Color.RED; //default: black
-    private static final Color CURRENT_VERTEX_COLOR = Color.GREEN; //default: orange
-    private static final Color PREVIOUS_PATH_COLOR = Color.ORANGE; //default: black
-    private static final Color START_VERTEX_COLOR = Color.RED; //default: white
-    private static final Color END_VERTEX_COLOR = Color.BLUE; //default: blue
-
     private final WeightedGraph graph;
     private final int pixelSize;
     private final int columns;
     private final int lines;
-    private final WeightedGraph.Vertex start;
-    private final WeightedGraph.Vertex end;
 
-    public Map(WeightedGraph graph, int pixelSize, int columns, int lines, WeightedGraph.Vertex start, WeightedGraph.Vertex end) {
+    private WeightedGraph.Vertex start;
+    private WeightedGraph.Vertex end;
+    private int delay;
+    private int timer;
+    private Color pathColor;
+    private Color currentVertexColor;
+    private Color previousPathColor;
+    private Color startVertexColor;
+    private Color endVertexColor;
+    private boolean showAnimation;
+
+    public Map(WeightedGraph graph, int pixelSize, int columns, int lines,
+               WeightedGraph.Vertex start, WeightedGraph.Vertex end,
+               Configuration configuration) {
         this.graph = graph;
         this.pixelSize = pixelSize;
         this.columns = columns;
         this.lines = lines;
         this.start = start;
         this.end = end;
+        setConfig(configuration);
     }
 
     @Override
@@ -75,12 +80,12 @@ public class Map extends JComponent {
             g2.fill(new Rectangle2D.Double(x*pixelSize, y*pixelSize, pixelSize, pixelSize));
 
             if(n == start.getN()) {
-                g2.setPaint(START_VERTEX_COLOR);
+                g2.setPaint(startVertexColor);
                 g2.fill(new Rectangle2D.Double(x*pixelSize+((double)pixelSize/2)/2, y*pixelSize+((double)pixelSize/2)/2,
                         (double)pixelSize/2, (double)pixelSize/2));
             }
             if(n == end.getN()) {
-                g2.setPaint(END_VERTEX_COLOR);
+                g2.setPaint(endVertexColor);
                 g2.fill(new Rectangle2D.Double(x*pixelSize+((double)pixelSize/2)/2, y*pixelSize+((double)pixelSize/2)/2,
                         (double)pixelSize/2, (double)pixelSize/2));
             }
@@ -94,7 +99,7 @@ public class Map extends JComponent {
         int n = current.getN();
         int y = n / columns;
         int x = n % columns;
-        g2.setPaint(CURRENT_VERTEX_COLOR);
+        g2.setPaint(currentVertexColor);
         double p = (double)pixelSize /2;
         g2.fill(new Ellipse2D.Double(x*pixelSize+p/2, y*pixelSize+p/2, p, p));
 
@@ -103,7 +108,7 @@ public class Map extends JComponent {
             if (previous != null) {
                 int y2 = previous.getN() / columns;
                 int x2 = previous.getN() % columns;
-                g2.setPaint(PREVIOUS_PATH_COLOR);
+                g2.setPaint(previousPathColor);
                 g2.setStroke(new BasicStroke((float)pixelSize/10));
                 g2.draw(new Line2D.Double(x*this.pixelSize+p, y*this.pixelSize+p, x2*this.pixelSize+p,y2*this.pixelSize+p));
             }
@@ -111,14 +116,38 @@ public class Map extends JComponent {
         this.getToolkit().sync();
     }
 
-    public void display(Window.PathFinderArgument pathFinderType, boolean showAnimation) {
+    public void display(Launcher.PathFinderArgument pathFinderType) {
         switch(pathFinderType) {
-            case A_STAR -> showPathFinder(new AStarInstance(graph, columns), showAnimation);
-            case DIJKSTRA -> showPathFinder(new DijkstraInstance(graph), showAnimation);
+            case A_STAR -> showPathFinder(new AStarInstance(graph, columns));
+            case DIJKSTRA -> showPathFinder(new DijkstraInstance(graph));
         }
     }
 
-    private void showPathFinder(PathFinderInstance pathFinderInstance, boolean showAnimation) {
+    private void setConfig(Configuration configuration) {
+        String currentVertexCode = (String) configuration.get(Field.Type.CURRENT_VERTEX_COLOR).getValue();
+        String previousVertexCode = (String) configuration.get(Field.Type.PREVIOUS_PATH_COLOR).getValue();
+        String startVertexCode = (String) configuration.get(Field.Type.START_VERTEX_COLOR).getValue();
+        String endVertexCode = (String) configuration.get(Field.Type.END_VERTEX_COLOR).getValue();
+        String pathCode = (String) configuration.get(Field.Type.PATH_COLOR).getValue();
+
+        this.currentVertexColor = Color.decode(currentVertexCode);
+        this.previousPathColor = Color.decode(previousVertexCode);
+        this.startVertexColor = Color.decode(startVertexCode);
+        this.endVertexColor = Color.decode(endVertexCode);
+        this.pathColor = Color.decode(pathCode);
+
+        this.delay = (int) configuration.get(Field.Type.DELAY).getValue();
+        this.timer = (int) configuration.get(Field.Type.TIME).getValue();
+
+        this.showAnimation = (boolean) configuration.get(Field.Type.SHOW_ANIMATION).getValue();
+
+        PointField startField = (PointField) configuration.get(Field.Type.START);
+        if(startField != null) this.start = this.graph.getVertices().get(startField.getValue());
+        PointField endField = (PointField) configuration.get(Field.Type.END);
+        if(endField != null) this.end = this.graph.getVertices().get(endField.getValue());
+    }
+
+    private void showPathFinder(PathFinderInstance pathFinderInstance) {
         if(this.graph == null) return;
 
         double pathTime = pathFinderInstance.searchPath(start, end);
@@ -130,7 +159,7 @@ public class Map extends JComponent {
             for (int i = 0; i < graph.getVertices().size(); i++) {
                 WeightedGraph.Vertex u = delays.get(i);
                 if (u != null) {
-                    Timer dispatch = new Timer(DELAY + i * TIMER, evt -> update(u));
+                    Timer dispatch = new Timer(delay + i * timer, evt -> update(u));
                     p++;
                     dispatch.setRepeats(false);
                     dispatch.start();
@@ -138,7 +167,7 @@ public class Map extends JComponent {
             }
         }
 
-        Timer pathDispatch = new Timer(DELAY+p*TIMER, evt -> drawPath(path));
+        Timer pathDispatch = new Timer(delay+p*timer, evt -> drawPath(path));
         pathDispatch.setRepeats(false);
         pathDispatch.start();
 
@@ -152,7 +181,7 @@ public class Map extends JComponent {
         g2.setStroke(new BasicStroke((float)pixelSize/5));
         for (WeightedGraph.Vertex cur : path) {
             if (p != null) {
-                g2.setPaint(PATH_COLOR);
+                g2.setPaint(pathColor);
                 int i = p.getN() / columns;
                 int j = p.getN() % columns;
                 int i2 = cur.getN() / columns;
