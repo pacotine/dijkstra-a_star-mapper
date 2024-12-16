@@ -3,8 +3,8 @@ package main.gui.launcher;
 public class PointField extends Field<Integer> {
 
 
-    public PointField(Type type, String value) {
-        super(type, Integer.parseInt(value));
+    public PointField(String value) {
+        super(Integer.parseInt(value));
     }
 
     @Override

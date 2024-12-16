@@ -3,8 +3,8 @@ package main.gui.launcher;
 import java.awt.*;
 
 public class ColorField extends Field<String> {
-    public ColorField(Type type, String value) {
-        super(type, value);
+    public ColorField(String value) {
+        super(value);
     }
 
     @Override

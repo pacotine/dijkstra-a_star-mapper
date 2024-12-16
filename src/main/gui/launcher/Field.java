@@ -69,19 +69,13 @@ public abstract class Field<T> {
     }
 
     protected final T value;
-    private final Type type;
 
-    public Field(Type type, T value) {
+    public Field(T value) {
         this.value = value;
-        this.type = type;
     }
 
     public T getValue() {
         return value;
-    }
-
-    public Type getType() {
-        return type;
     }
 
     public abstract boolean isValueValid();

@@ -19,15 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Map extends JComponent {
-    private static final TimeField DEFAULT_DELAY = new TimeField(Field.Type.DELAY, 2000, 0, 10_000); //ms
-    private static final TimeField DEFAULT_TIMER = new TimeField(Field.Type.TIME, 10, 1, 20_000); //ms
-    private static final ColorField DEFAULT_PATH_COLOR = new ColorField(Field.Type.PATH_COLOR, "#FF19A7");;
-    private static final ColorField DEFAULT_CURRENT_VERTEX_COLOR = new ColorField(Field.Type.CURRENT_VERTEX_COLOR, "#8E09DB");
-    private static final ColorField DEFAULT_PREVIOUS_PATH_COLOR = new ColorField(Field.Type.PREVIOUS_PATH_COLOR, "#FF9C19");
-    private static final ColorField DEFAULT_START_VERTEX_COLOR = new ColorField(Field.Type.START_VERTEX_COLOR, "#FF194F");
-    private static final ColorField DEFAULT_END_VERTEX_COLOR = new ColorField(Field.Type.END_VERTEX_COLOR, "#19A3FF");
-    private static final BooleanValueField DEFAULT_SHOW_ANIMATION = new BooleanValueField(Field.Type.SHOW_ANIMATION, true);
-
     private final WeightedGraph graph;
     private final int pixelSize;
     private final int columns;
@@ -46,14 +37,14 @@ public class Map extends JComponent {
 
     public Map(WeightedGraph graph, int pixelSize, int columns, int lines,
                WeightedGraph.Vertex start, WeightedGraph.Vertex end,
-               java.util.Map<Field.Type, Field<?>> options) {
+               Configuration configuration) {
         this.graph = graph;
         this.pixelSize = pixelSize;
         this.columns = columns;
         this.lines = lines;
         this.start = start;
         this.end = end;
-        setConfig(options);
+        setConfig(configuration);
     }
 
     @Override
@@ -132,12 +123,12 @@ public class Map extends JComponent {
         }
     }
 
-    private void setConfig(java.util.Map<Field.Type, Field<?>> options) {
-        String currentVertexCode = (String) options.getOrDefault(Field.Type.CURRENT_VERTEX_COLOR, DEFAULT_CURRENT_VERTEX_COLOR).getValue();
-        String previousVertexCode = (String) options.getOrDefault(Field.Type.PREVIOUS_PATH_COLOR, DEFAULT_PREVIOUS_PATH_COLOR).getValue();
-        String startVertexCode = (String) options.getOrDefault(Field.Type.START_VERTEX_COLOR, DEFAULT_START_VERTEX_COLOR).getValue();
-        String endVertexCode = (String) options.getOrDefault(Field.Type.END_VERTEX_COLOR, DEFAULT_END_VERTEX_COLOR).getValue();
-        String pathCode = (String) options.getOrDefault(Field.Type.PATH_COLOR, DEFAULT_PATH_COLOR).getValue();
+    private void setConfig(Configuration configuration) {
+        String currentVertexCode = (String) configuration.get(Field.Type.CURRENT_VERTEX_COLOR).getValue();
+        String previousVertexCode = (String) configuration.get(Field.Type.PREVIOUS_PATH_COLOR).getValue();
+        String startVertexCode = (String) configuration.get(Field.Type.START_VERTEX_COLOR).getValue();
+        String endVertexCode = (String) configuration.get(Field.Type.END_VERTEX_COLOR).getValue();
+        String pathCode = (String) configuration.get(Field.Type.PATH_COLOR).getValue();
 
         this.currentVertexColor = Color.decode(currentVertexCode);
         this.previousPathColor = Color.decode(previousVertexCode);
@@ -145,19 +136,15 @@ public class Map extends JComponent {
         this.endVertexColor = Color.decode(endVertexCode);
         this.pathColor = Color.decode(pathCode);
 
-        this.delay = (int) options.getOrDefault(Field.Type.DELAY, DEFAULT_DELAY).getValue();
-        this.timer = (int) options.getOrDefault(Field.Type.TIME, DEFAULT_TIMER).getValue();
+        this.delay = (int) configuration.get(Field.Type.DELAY).getValue();
+        this.timer = (int) configuration.get(Field.Type.TIME).getValue();
 
-        this.showAnimation = (boolean) options.getOrDefault(Field.Type.SHOW_ANIMATION, DEFAULT_SHOW_ANIMATION).getValue();
+        this.showAnimation = (boolean) configuration.get(Field.Type.SHOW_ANIMATION).getValue();
 
-        if(options.containsKey(Field.Type.START)) {
-            int startPosition = (int) options.get(Field.Type.START).getValue();
-            this.start = this.graph.getVertices().get(startPosition);
-        }
-        if(options.containsKey(Field.Type.END)) {
-            int endPosition = (int) options.get(Field.Type.END).getValue();
-            this.end = this.graph.getVertices().get(endPosition);
-        }
+        PointField startField = (PointField) configuration.get(Field.Type.START);
+        if(startField != null) this.start = this.graph.getVertices().get(startField.getValue());
+        PointField endField = (PointField) configuration.get(Field.Type.END);
+        if(endField != null) this.end = this.graph.getVertices().get(endField.getValue());
     }
 
     private void showPathFinder(PathFinderInstance pathFinderInstance) {

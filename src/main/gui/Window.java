@@ -49,12 +49,12 @@ public class Window {
         System.out.println("start : " + start);
         System.out.println("end : " + end);
         System.out.println("map size : " + lines + " x " + columns);
-        System.out.println("configuration options: " + launcher.getOptions());
+        System.out.println("configuration: " + launcher.getConfiguration());
 
         int pixelSize = (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()/(lines > columns ? lines+1 : columns+1));
         this.pixelSize = pixelSize;
 
-        return new Map(weightedGraph, pixelSize, columns, lines, start, end, launcher.getOptions());
+        return new Map(weightedGraph, pixelSize, columns, lines, start, end, launcher.getConfiguration());
     }
 
     private void initWindow(Map map) {

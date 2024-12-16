@@ -101,7 +101,7 @@ public class Launcher {
     private MapArgument mapType;
     private String path;
     private PathFinderArgument pathFinderType;
-    private Map<Field.Type, Field<?>> options;
+    private Configuration configuration;
 
     public Launcher(String[] args) {
         init(args);
@@ -118,24 +118,24 @@ public class Launcher {
             this.mapType = MapArgument.of(args[0]);
             this.pathFinderType = PathFinderArgument.of(args[1]);
             this.path = args[2];
-            this.options = new HashMap<>();
+            this.configuration = new Configuration();
 
             while(i+1 < l) {
                 Field.Type type = Field.Type.of(args[++i], mapType, pathFinderType);
 
                 Field<?> field = switch(type) {
-                    case START, END -> new PointField(type, args[++i]);
+                    case START, END -> new PointField(args[++i]);
                     case HEURISTIC -> null; //TODO
-                    case TIME -> new TimeField(type, args[++i], 1, 20_000);
-                    case DELAY -> new TimeField(type, args[++i], 0, 60_000);
+                    case TIME -> new TimeField(args[++i], 1, 20_000);
+                    case DELAY -> new TimeField(args[++i], 0, 60_000);
                     case START_VERTEX_COLOR,
                          END_VERTEX_COLOR,
                          PREVIOUS_PATH_COLOR,
                          CURRENT_VERTEX_COLOR,
-                         PATH_COLOR -> new ColorField(type, args[++i]);
-                    case SHOW_ANIMATION -> new BooleanValueField(type, false);
+                         PATH_COLOR -> new ColorField(args[++i]);
+                    case SHOW_ANIMATION -> new BooleanValueField(false);
                 };
-                if(field.isValueValid()) options.put(type, field);
+                if(field.isValueValid()) configuration.set(type, field);
                 else throw new IllegalArgumentException("value '" + field.getValue() + "' is invalid for option '" + type + "'");
             }
         } catch(ArrayIndexOutOfBoundsException ai) {
@@ -157,7 +157,7 @@ public class Launcher {
         return pathFinderType;
     }
 
-    public Map<Field.Type, Field<?>> getOptions() {
-        return options;
+    public Configuration getConfiguration() {
+        return configuration;
     }
 }
