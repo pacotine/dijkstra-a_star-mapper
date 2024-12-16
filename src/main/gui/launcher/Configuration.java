@@ -44,6 +44,14 @@ public class Configuration {
 
     @Override
     public String toString() {
-        return values.toString();
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\n");
+        values.forEach((type, field) -> {
+            stringBuilder.append(type);
+            stringBuilder.append(" : ");
+            stringBuilder.append(field);
+            stringBuilder.append("\n");
+        });
+        return stringBuilder.toString();
     }
 }

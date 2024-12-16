@@ -3,6 +3,7 @@ package main.gui;
 import main.gui.launcher.*;
 import main.instances.AStarInstance;
 import main.instances.DijkstraInstance;
+import main.instances.Heuristic;
 import main.instances.PathFinderInstance;
 import main.model.WeightedGraph;
 
@@ -34,6 +35,7 @@ public class Map extends JComponent {
     private Color startVertexColor;
     private Color endVertexColor;
     private boolean showAnimation;
+    private final Configuration configuration;
 
     public Map(WeightedGraph graph, int pixelSize, int columns, int lines,
                WeightedGraph.Vertex start, WeightedGraph.Vertex end,
@@ -44,7 +46,8 @@ public class Map extends JComponent {
         this.lines = lines;
         this.start = start;
         this.end = end;
-        setConfig(configuration);
+        this.configuration = configuration;
+        setConfig();
     }
 
     @Override
@@ -118,12 +121,12 @@ public class Map extends JComponent {
 
     public void display(Launcher.PathFinderArgument pathFinderType) {
         switch(pathFinderType) {
-            case A_STAR -> showPathFinder(new AStarInstance(graph, columns));
+            case A_STAR -> showPathFinder(new AStarInstance(graph, columns, (Heuristic) configuration.get(Field.Type.HEURISTIC).getValue()));
             case DIJKSTRA -> showPathFinder(new DijkstraInstance(graph));
         }
     }
 
-    private void setConfig(Configuration configuration) {
+    private void setConfig() {
         String currentVertexCode = (String) configuration.get(Field.Type.CURRENT_VERTEX_COLOR).getValue();
         String previousVertexCode = (String) configuration.get(Field.Type.PREVIOUS_PATH_COLOR).getValue();
         String startVertexCode = (String) configuration.get(Field.Type.START_VERTEX_COLOR).getValue();

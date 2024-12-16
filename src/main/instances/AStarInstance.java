@@ -6,9 +6,11 @@ import java.util.*;
 
 public class AStarInstance extends PathFinderInstance {
     private final int mapSize;
-    public AStarInstance(WeightedGraph graph, int mapSize) {
+    private final Heuristic heuristic;
+    public AStarInstance(WeightedGraph graph, int mapSize, Heuristic heuristic) {
         super(graph);
         this.mapSize = mapSize;
+        this.heuristic = heuristic;
     }
 
     @Override
@@ -37,7 +39,7 @@ public class AStarInstance extends PathFinderInstance {
                 int y1 = u.getN() / mapSize;
                 int x2 = end.getN() % mapSize;
                 int y2 = end.getN() / mapSize;
-                double dist = Math.sqrt(Math.pow(x1-x2, 2) + Math.pow(y1-y2, 2));
+                double dist = heuristic.h(x1,y1,x2,y2);
                 double factor = u.getDiagonalNeighbors().contains(neighbor) ? Math.sqrt(2) : 2.0;
                 double weight = (double)(neighbor.getType().value() + u.getType().value())/factor;
 
