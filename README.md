@@ -47,9 +47,9 @@ a-star              use A* algorithm on this map
 <path> is the path to the map source file, according to the mode (see <map_type>)
 
 [options] includes
---start             <point>     define the starting point, where <point> is a positive integer representing the <point>-th vertex of the graph | default: 0 for <map_type>=a-star, undefined otherwise
+--start             <point>     define the starting point, where <point> is a positive integer representing the <point>-th vertex of the graph | default: 0 for <path_finder_algorithm>=a-star ; undefined otherwise
 
---end               <point>     define the finish point, where <point> is a positive integer representing the <point>-th vertex of the graph | default: last vertex for <map-type>=a-star, undefined otherwise
+--end               <point>     define the finish point, where <point> is a positive integer representing the <point>-th vertex of the graph | default: last vertex for <path_finder_algorithm>=a-star ; undefined otherwise
 
 --time              <time>      set the execution time between each vertex (<time> minimum value: 1, maximum value: 20000) | default: 10ms
 
@@ -64,6 +64,8 @@ a-star              use A* algorithm on this map
 --current-color     <color>     set the current vertex color to <color> for the animation, where <color> is a hexadecimal color code | default: #8E09DB
 
 --path-color        <color>     set the (final) path color to <color>, where <color> is a hexadecimal color code | default: #FF19A7
+
+--heuristic       <heuristic>   define the heuristic (can only be used if <path_finder_algorithm>=a-star), where <heuristic> includes [chebyshev, euclidean] for <map_type>=config and [manhattan] for <map_type>=image | default: chebyshev if <map_type>=config ; manhattan if <map_type>=image
 
 
 --no-animation                  deactivate search animation before displaying the path found
