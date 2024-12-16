@@ -32,22 +32,41 @@ Download the archive for the version of your choice and see the [usage section](
 
 Once you have downloaded a JAR release, use the following commands to run the program:
 ```bash
-java -jar dijkstra-a_star-mapper.jar <map_type> <path> [path_finder] [options]
+java -jar dijkstra-a_star-mapper.jar <map_type> <path_finder_algorithm> <path> [options]
 ```            
 where:
 ```text
 <map_type> includes
-image           to set the program to image mode (<path> will then be the path to the image file)
-config          to set the program to config mode (<path> will then be the path to the map configuration file)
+image               to set the program to image mode (<path> will then be the path to the image file)
+config              to set the program to config mode (<path> will then be the path to the map configuration file)
+
+<path_finder_algorithm> includes
+dijkstra            use Dijkstra's algorithm on this map
+a-star              use A* algorithm on this map
 
 <path> is the path to the map source file, according to the mode (see <map_type>)
 
-[path_finder] includes
---dijkstra      use Dijkstra's algorithm on this map
---a-star        use A* algorithm on this map (this is the default [path_finder] set)
-
 [options] includes
---no-animation  deactivate search animation before displaying the path found
+--start             <point>     define the starting point, where <point> is a positive integer representing the <point>-th vertex of the graph | default: 0 for <map_type>=a-star, undefined otherwise
+
+--end               <point>     define the finish point, where <point> is a positive integer representing the <point>-th vertex of the graph | default: last vertex for <map-type>=a-star, undefined otherwise
+
+--time              <time>      set the execution time between each vertex (<time> minimum value: 1, maximum value: 20000) | default: 10ms
+
+--delay             <time>      set the delay before the display begins (<time> minimum value: 0, maximum value: 60000) | default: 2000ms
+
+--start-color       <color>     set the starting point vertex color to <color>, where <color> is a hexadecimal color code | default: #FF194F
+
+--end-color         <color>     set the finish point vertex color to <color>, where <color> is a hexadecimal color code | default: #19A3FF
+
+--previous-color    <color>     set the previous path color to <color> for the animation, where <color> is a hexadecimal color code | default: #FF9C19
+
+--current-color     <color>     set the current vertex color to <color> for the animation, where <color> is a hexadecimal color code | default: #8E09DB
+
+--path-color        <color>     set the (final) path color to <color>, where <color> is a hexadecimal color code | default: #FF19A7
+
+
+--no-animation                  deactivate search animation before displaying the path found
 ```
 You can also display this documentation with the following command:
 ```bash
