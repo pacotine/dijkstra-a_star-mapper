@@ -2,9 +2,6 @@ package main.gui.launcher;
 
 import main.Main;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Launcher {
     public static final MapArgument[] ALL_MAP_TYPES = MapArgument.values();
     public static final PathFinderArgument[] ALL_PATH_FINDERS = PathFinderArgument.values();

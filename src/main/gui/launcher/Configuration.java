@@ -6,7 +6,7 @@ import java.util.Map;
 public class Configuration {
     private static final TimeField DEFAULT_DELAY = new TimeField(2000, 0, 10_000); //ms
     private static final TimeField DEFAULT_TIMER = new TimeField(10, 1, 20_000); //ms
-    private static final ColorField DEFAULT_PATH_COLOR = new ColorField("#FF19A7");;
+    private static final ColorField DEFAULT_PATH_COLOR = new ColorField("#FF19A7");
     private static final ColorField DEFAULT_CURRENT_VERTEX_COLOR = new ColorField("#8E09DB");
     private static final ColorField DEFAULT_PREVIOUS_PATH_COLOR = new ColorField("#FF9C19");
     private static final ColorField DEFAULT_START_VERTEX_COLOR = new ColorField("#FF194F");
