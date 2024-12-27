@@ -24,8 +24,8 @@ public class GraphImageReader extends GraphReader {
         this.weightedGraph = new WeightedGraph();
         setVertices(image);
         setNeighbors();
-        this.start = weightedGraph.getVertices().getFirst(); //temp
-        this.end = weightedGraph.getVertices().getLast(); //temp
+        this.start = weightedGraph.getVertices().getFirst(); //default
+        this.end = weightedGraph.getVertices().getLast(); //default
     }
 
     private void setVertices(BufferedImage image) {
