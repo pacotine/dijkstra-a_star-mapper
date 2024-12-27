@@ -24,7 +24,7 @@ public class HeuristicField extends Field<Heuristic> {
     public boolean isValueValid() {
         return switch(mapType) {
             case IMAGE -> value == Heuristic.MANHATTAN;
-            case CONFIG -> value == Heuristic.CHEBYSHEV || value == Heuristic.EUCLIDEAN;
+            case CONFIG -> value == Heuristic.CHEBYSHEV || value == Heuristic.EUCLIDEAN || value == Heuristic.OCTILE;
         };
     }
 }

@@ -48,7 +48,7 @@ public class Launcher {
             
             --path-color        <color>     set the (final) path color to <color>, where <color> is a hexadecimal color code | default: #FF19A7
             
-            --heuristic       <heuristic>   define the heuristic (can only be used if <path_finder_algorithm>=a-star), where <heuristic> includes [chebyshev, euclidean] for <map_type>=config and [manhattan] for <map_type>=image | default: chebyshev if <map_type>=config ; manhattan if <map_type>=image
+            --heuristic       <heuristic>   define the heuristic (can only be used if <path_finder_algorithm>=a-star), where <heuristic> includes [chebyshev, octile, euclidean] for <map_type>=config and [manhattan] for <map_type>=image | default: chebyshev if <map_type>=config ; manhattan if <map_type>=image
             
             
             --no-animation                  deactivate search animation before displaying the path found
@@ -101,7 +101,8 @@ public class Launcher {
     public enum HeuristicArgument {
         EUCLIDEAN("euclidean", Heuristic.EUCLIDEAN),
         MANHATTAN("manhattan", Heuristic.MANHATTAN),
-        CHEBYSHEV("chebyshev", Heuristic.CHEBYSHEV);
+        CHEBYSHEV("chebyshev", Heuristic.CHEBYSHEV),
+        OCTILE("octile", Heuristic.OCTILE);
 
         private final String arg;
         private final Heuristic heuristic;

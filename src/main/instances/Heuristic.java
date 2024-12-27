@@ -31,10 +31,7 @@ public interface Heuristic {
     Heuristic CHEBYSHEV = new Heuristic() {
         @Override
         public double h(int vx, int vy, int ex, int ey) {
-            int dx = Math.abs(vx-ex);
-            int dy = Math.abs(vy-ey);
-            int D = 1, D2 = 1;
-            return D*(dx+dy) + (D2 - 2 * D) * Math.min(dx, dy);
+            return Math.max(Math.abs(vx-vy), Math.abs(ex-ey));
         }
 
         @Override
@@ -42,4 +39,18 @@ public interface Heuristic {
             return "chebyshev";
         }
     }; //square grid - 8 directions
+
+    Heuristic OCTILE = new Heuristic() {
+        @Override
+        public double h(int vx, int vy, int ex, int ey) {
+            int dx = Math.abs(vx-ex);
+            int dy = Math.abs(vy-ey);
+            return Math.sqrt(2)*Math.min(dx, dy) + Math.abs(dx - dy);
+        }
+
+        @Override
+        public String toString() {
+            return "octile";
+        }
+    }; //square grid - 8 directions, better
 }
