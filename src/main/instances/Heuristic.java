@@ -31,7 +31,7 @@ public interface Heuristic {
     Heuristic CHEBYSHEV = new Heuristic() {
         @Override
         public double h(int vx, int vy, int ex, int ey) {
-            return Math.max(Math.abs(vx-vy), Math.abs(ex-ey));
+            return Math.max(Math.abs(vx-ex), Math.abs(vy-ey));
         }
 
         @Override
