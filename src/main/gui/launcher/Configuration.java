@@ -3,6 +3,12 @@ package main.gui.launcher;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Represents the configuration settings for the application.
+ * This class stores various customizable fields, such as delays, colors, and animation options,
+ * with default values initialized during construction.
+ * The configuration allows updates to individual fields while maintaining type safety.
+ */
 public class Configuration {
     private static final TimeField DEFAULT_DELAY = new TimeField(2000, 0, 10_000); //ms
     private static final TimeField DEFAULT_TIMER = new TimeField(10, 1, 20_000); //ms
@@ -15,19 +21,41 @@ public class Configuration {
 
     private final Map<Field.Type, Field<?>> values;
 
+    /**
+     * Constructs a new {@link Configuration} with default field values.
+     * Initializes a map of {@link Field.Type} to their corresponding default {@link Field} instances.
+     */
     public Configuration() {
         this.values = initDefault();
     }
 
+    /**
+     * Updates the value of a specific configuration field.
+     *
+     * @param type  the type of the field to update
+     * @param value the new value to set
+     * @throws NullPointerException if {@code type} or {@code value} is {@code null}
+     */
     public void set(Field.Type type, Field<?> value) {
         if(values.containsKey(type)) values.replace(type, value);
         else values.put(type, value);
     }
 
+    /**
+     * Retrieves the value of a specific configuration field.
+     *
+     * @param type the type of the field to retrieve
+     * @return the {@link Field} corresponding to the specified type, or {@code null} if the type is not present
+     */
     public Field<?> get(Field.Type type) {
         return values.get(type);
     }
 
+    /**
+     * Initializes the configuration with default field values.
+     *
+     * @return a {@link Map} containing default values for each {@link Field.Type}
+     */
     private static Map<Field.Type, Field<?>> initDefault() {
         final Map<Field.Type, Field<?>> defaultConfig = new HashMap<>();
         defaultConfig.put(Field.Type.DELAY, DEFAULT_DELAY);
@@ -42,6 +70,12 @@ public class Configuration {
         return defaultConfig;
     }
 
+    /**
+     * Converts the configuration into a readable {@link String} representation.
+     * Each field type and its corresponding value are listed in the output.
+     *
+     * @return a {@link String} representation of the configuration
+     */
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
