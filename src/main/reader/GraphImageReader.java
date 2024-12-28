@@ -16,7 +16,7 @@ public class GraphImageReader extends GraphReader {
 
     @Override
     public void read() throws IOException {
-        if(!file.exists()) throw new IllegalArgumentException("Cannot read this file : it doesn't exist");
+        if(!file.exists()) throw new IllegalArgumentException("Cannot read this image : it doesn't exist");
 
         BufferedImage image = ImageIO.read(file);
         this.lines = image.getHeight();
@@ -24,8 +24,8 @@ public class GraphImageReader extends GraphReader {
         this.weightedGraph = new WeightedGraph();
         setVertices(image);
         setNeighbors();
-        this.start = weightedGraph.getVertices().getFirst(); //default
-        this.end = weightedGraph.getVertices().getLast(); //default
+        this.start = weightedGraph.getVertices().getFirst();
+        this.end = weightedGraph.getVertices().getLast();
     }
 
     private void setVertices(BufferedImage image) {
