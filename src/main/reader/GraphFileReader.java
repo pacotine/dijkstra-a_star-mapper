@@ -8,14 +8,31 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * A concrete implementation of {@link GraphReader} that reads graph data from a text file.
+ * This reader handles graph configuration files (see examples in `assets/examples` folder).
+ * <p>
+ * It uses a {@link Scanner} for reading the file line by line.
+ */
 public class GraphFileReader extends GraphReader {
     private final Scanner scanner;
 
+    /**
+     * Constructs a {@link GraphFileReader} for the specified file path.
+     *
+     * @param path the path to the graph configuration file (containing the graph data).
+     * @throws FileNotFoundException if the file does not exist
+     */
     public GraphFileReader(String path) throws FileNotFoundException {
         super(path);
         this.scanner = new Scanner(file);
     }
 
+    /**
+     * Reads the graph from the file, initializes its vertices, neighbors, start, and end points.
+     *
+     * @throws IllegalArgumentException if the file is invalid or contains unexpected data
+     */
     @Override
     public void read() {
         if(!file.exists()) throw new IllegalArgumentException("Cannot read this file : it doesn't exist");
@@ -34,6 +51,10 @@ public class GraphFileReader extends GraphReader {
         this.end = retrieveVertex(weightedGraph, columns, "Finish");
     }
 
+    /**
+     * Retrieves and sets neighbors for all vertices of this graph.
+     * Graphs generated from configuration files allow diagonal neighbors (each vertex has up to 8 neighbors).
+     */
     private void setNeighbors() {
         List<WeightedGraph.Vertex> vertices = weightedGraph.getVertices();
         for(int line = 0; line < lines; line++) {
@@ -52,6 +73,12 @@ public class GraphFileReader extends GraphReader {
         }
     }
 
+    /**
+     * Retrieves an integer specified on a line by the keyword {@code key}, positioned after the '='.
+     * For example, this specification is valid: {@code ncols = 4} and this method will return {@code 4}.
+     * @param key the expected key to read the integer
+     * @return the integer specified by the line with the {@code key} keyword
+     */
     private int retrieveInt(String key) {
         String[] args = scanner.nextLine().split("=");
         String keyFound = args[0];
@@ -62,6 +89,10 @@ public class GraphFileReader extends GraphReader {
         return Integer.parseInt(value);
     }
 
+    /**
+     * Retrieves the different vertex types defined in the configuration file (in the dedicated {@code =Types=} section).
+     * @return a {@link Map} containing the (ID, {@link main.model.WeightedGraph.Type}) pairs for this graph
+     */
     private Map<Character, WeightedGraph.Type> retrieveTypes() {
         Map<Character, WeightedGraph.Type> types = new HashMap<>();
         String line;
@@ -80,6 +111,13 @@ public class GraphFileReader extends GraphReader {
         return types;
     }
 
+    /**
+     * Retrieves a vertex from the graph specified by the {@code key} keyword in the configuration file by its coordinates.
+     * @param G a {@link WeightedGraph}
+     * @param columns the map width
+     * @param key the expected key to read the vertex
+     * @return the vertex specified by its coordinates in the configuration file and by the {@code key} keyword
+     */
     private WeightedGraph.Vertex retrieveVertex(WeightedGraph G, int columns, String key) {
         String[] args = scanner.nextLine().split("=");
         String keyFound = args[0];
@@ -93,6 +131,10 @@ public class GraphFileReader extends GraphReader {
         return G.getVertices().get(x * columns + y);
     }
 
+    /**
+     * Read the {@code ==Graph==} section to configure the graph and add its vertices.
+     * @param types a {@link Map} containing the (ID, {@link main.model.WeightedGraph.Type}) pairs for this graph
+     */
     private void setVertices(Map<Character, WeightedGraph.Type> types) {
         for (int line=0; line < lines; line++) {
             String c = scanner.next();
@@ -102,6 +144,10 @@ public class GraphFileReader extends GraphReader {
         }
     }
 
+    /**
+     * Skip unnecessary or empty lines to the {@link Scanner}.
+     * @param lines the number of lines to skip
+     */
     private void skip(int lines) {
         while(lines > 0) {
             scanner.nextLine();

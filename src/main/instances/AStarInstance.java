@@ -4,15 +4,33 @@ import main.model.WeightedGraph;
 
 import java.util.*;
 
+/**
+ * An implementation of the A* algorithm for finding the shortest path in a weighted graph.
+ */
 public class AStarInstance extends PathFinderInstance {
     private final int mapSize;
     private final Heuristic heuristic;
+
+    /**
+     * Constructs an {@link AStarInstance} for the specified graph, map size, and heuristic.
+     *
+     * @param graph the {@link WeightedGraph} to operate on
+     * @param mapSize the size of the map (used for heuristic calculations)
+     * @param heuristic the heuristic function for A*
+     */
     public AStarInstance(WeightedGraph graph, int mapSize, Heuristic heuristic) {
         super(graph);
         this.mapSize = mapSize;
         this.heuristic = heuristic;
     }
 
+    /**
+     * Performs the A* algorithm to find the shortest path between the start and end vertices.
+     *
+     * @param start the starting vertex
+     * @param end the ending vertex
+     * @return the total cost of the shortest path
+     */
     @Override
     public double searchPath(WeightedGraph.Vertex start, WeightedGraph.Vertex end) {
         delays.clear();
@@ -58,6 +76,13 @@ public class AStarInstance extends PathFinderInstance {
         return end.getTimeFromSource();
     }
 
+    /**
+     * Finds the vertex with the smallest f-score in the open list.
+     *
+     * @param open the open list of vertices
+     * @param f the f-score map
+     * @return the vertex with the smallest f-score
+     */
     private static WeightedGraph.Vertex findMinF(List<WeightedGraph.Vertex> open, HashMap<WeightedGraph.Vertex, Double> f) {
         double distanceMin = Double.POSITIVE_INFINITY;
         WeightedGraph.Vertex min = null;

@@ -19,6 +19,11 @@ import java.awt.geom.Rectangle2D;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * This represents a graphical component used to visualize a graph,
+ * render pathfinding algorithms, and animate their execution. It manages the graphical
+ * representation of vertices, edges, and the optimal path between two vertices.
+ */
 public class Map extends JComponent {
     private final WeightedGraph graph;
     private final int pixelSize;
@@ -37,6 +42,17 @@ public class Map extends JComponent {
     private boolean showAnimation;
     private final Configuration configuration;
 
+    /**
+     * Constructs a new {@code Map} instance to display the graph and perform pathfinding.
+     *
+     * @param graph         the {@link WeightedGraph} to be visualized
+     * @param pixelSize     the size of each graphical cell (in pixels)
+     * @param columns       the number of columns in the map grid
+     * @param lines         the number of rows in the map grid
+     * @param start         the starting vertex for the pathfinding algorithm
+     * @param end           the target vertex for the pathfinding algorithm
+     * @param configuration the configuration settings for the visualization, including colors and delays (see {@link Configuration})
+     */
     public Map(WeightedGraph graph, int pixelSize, int columns, int lines,
                WeightedGraph.Vertex start, WeightedGraph.Vertex end,
                Configuration configuration) {
@@ -50,6 +66,12 @@ public class Map extends JComponent {
         setConfig();
     }
 
+    /**
+     * Paints the graph on the {@code Map} component, rendering vertices, edges,
+     * and highlighting the start and end points.
+     *
+     * @param g the {@link Graphics} object used for drawing the component
+     */
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
@@ -97,6 +119,11 @@ public class Map extends JComponent {
         }
     }
 
+    /**
+     * Updates the graphical representation of a vertex during pathfinding animation.
+     *
+     * @param current the current vertex being processed
+     */
     private void update(WeightedGraph.Vertex current) {
         Graphics2D g2 = (Graphics2D) this.getGraphics();
         int n = current.getN();
@@ -119,6 +146,12 @@ public class Map extends JComponent {
         this.getToolkit().sync();
     }
 
+    /**
+     * Executes and displays the pathfinding algorithm specified in the launcher configuration.
+     *
+     * @param pathFinderType the type of pathfinding algorithm to execute (A*, Dijkstra, etc.)
+     * @see main.gui.launcher.Launcher.PathFinderArgument
+     */
     public void display(Launcher.PathFinderArgument pathFinderType) {
         switch(pathFinderType) {
             case A_STAR -> showPathFinder(new AStarInstance(graph, columns, (Heuristic) configuration.get(Field.Type.HEURISTIC).getValue()));
@@ -126,6 +159,10 @@ public class Map extends JComponent {
         }
     }
 
+    /**
+     * Configures the visual properties of the map and pathfinding animation based on the settings
+     * in the {@link Configuration}.
+     */
     private void setConfig() {
         String currentVertexCode = (String) configuration.get(Field.Type.CURRENT_VERTEX_COLOR).getValue();
         String previousVertexCode = (String) configuration.get(Field.Type.PREVIOUS_PATH_COLOR).getValue();
@@ -150,6 +187,11 @@ public class Map extends JComponent {
         if(endField != null) this.end = this.graph.getVertices().get(endField.getValue());
     }
 
+    /**
+     * Displays the result of the pathfinding algorithm and optionally animates the processing.
+     *
+     * @param pathFinderInstance the instance of the pathfinding algorithm
+     */
     private void showPathFinder(PathFinderInstance pathFinderInstance) {
         if(this.graph == null) return;
 
@@ -177,6 +219,11 @@ public class Map extends JComponent {
         System.out.println("Best path in : " + pathTime);
     }
 
+    /**
+     * Draws the shortest path determined by the pathfinding algorithm.
+     *
+     * @param path a list of vertices representing the optimal path
+     */
     private void drawPath(List<WeightedGraph.Vertex> path) {
         Graphics2D g2 = (Graphics2D)this.getGraphics();
 

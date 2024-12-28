@@ -2,6 +2,9 @@ package main;
 
 import main.gui.Window;
 
+/**
+ * Main class, initializes the application.
+ */
 public class Main {
 
     public static void main(String[] args) {
@@ -14,6 +17,10 @@ public class Main {
         }
     }
 
+    /**
+     * Retrieves implementation version from {@code MANIFEST.MF}.
+     * @return the implementation version of this application
+     */
     public static String getVersionFromManifest() {
         String version = Main.class.getPackage().getImplementationVersion();
         return version == null ? "built from source" : version;
