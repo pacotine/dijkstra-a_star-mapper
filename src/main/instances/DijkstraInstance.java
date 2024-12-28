@@ -5,11 +5,27 @@ import main.model.WeightedGraph;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * An implementation of the Dijkstra algorithm for finding the shortest path in a {@link WeightedGraph}.
+ */
 public class DijkstraInstance extends PathFinderInstance {
+
+    /**
+     * Constructs a {@link DijkstraInstance} for the specified graph.
+     *
+     * @param graph the {@link WeightedGraph} to operate on
+     */
     public DijkstraInstance(WeightedGraph graph) {
         super(graph);
     }
 
+    /**
+     * Performs the Dijkstra algorithm to find the shortest path between the start and end vertices.
+     *
+     * @param start the starting vertex
+     * @param end the ending vertex
+     * @return the total cost of the shortest path
+     */
     @Override
     public double searchPath(WeightedGraph.Vertex start, WeightedGraph.Vertex end) {
         delays.clear();
@@ -51,6 +67,14 @@ public class DijkstraInstance extends PathFinderInstance {
         return end.getTimeFromSource();
     }
 
+    /**
+     * Finds the vertex with the smallest distance in the priority queue.
+     * <p>
+     * <i>Note: we should use a {@link java.util.PriorityQueue} instead of {@link List}</i>
+     *
+     * @param Q the priority queue of vertices
+     * @return the vertex with the smallest distance
+     */
     private static WeightedGraph.Vertex findMin(List<WeightedGraph.Vertex> Q) {
         double distanceMin = Double.POSITIVE_INFINITY;
         WeightedGraph.Vertex min = null;
