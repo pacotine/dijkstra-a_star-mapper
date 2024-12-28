@@ -254,7 +254,8 @@ public class Launcher {
                 else throw new IllegalArgumentException("value '" + field.getValue() + "' is invalid for option '" + type + "'");
             }
         } catch(ArrayIndexOutOfBoundsException ai) {
-            System.err.println("missing argument after " + args[i-1]);
+            String message = args.length < 3 ? "invalid command" : "missing argument after " + args[i-1];
+            System.err.println(message);
             System.out.println("\nNeed help? Use --help to display the documentation.");
             System.exit(0);
         }
