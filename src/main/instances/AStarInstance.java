@@ -50,7 +50,11 @@ public class AStarInstance extends PathFinderInstance {
         int i = 0;
         while(!open.contains(end)) {
             WeightedGraph.Vertex u = findMinF(open, f);
-            delays.put(i, u);
+
+            WeightedGraph.Vertex temp = new WeightedGraph.Vertex(u.getN(), u.getType());
+            temp.setPrevious(u.getPrevious()); //keeping the previous vertex at time i with shallow copy
+            delays.put(i, temp);
+
             open.remove(u);
             for(WeightedGraph.Vertex neighbor : u.getNeighbors()) {
                 int x1 = u.getN() % mapSize;

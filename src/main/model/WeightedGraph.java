@@ -30,7 +30,7 @@ public class WeightedGraph {
          * @param n    the unique identifier for the vertex
          * @param type the type of the vertex
          */
-        Vertex(int n, Type type) {
+        public Vertex(int n, Type type) {
             this.n = n;
             this.type = type;
             this.neighbors = new ArrayList<>();
