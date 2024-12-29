@@ -47,9 +47,9 @@ a-star              use A* algorithm on this map
 <path> is the path to the map source file, according to the mode (see <map_type>)
 
 [options] includes
---start             <point>     define the starting point, where <point> is a positive integer representing the <point>-th vertex of the graph | default: 0 for <path_finder_algorithm>=a-star ; undefined otherwise
+--start             <point>     define the starting point, where <point> is a positive integer representing the <point>-th vertex of the graph | default: 0 for <map_type>=image ; undefined otherwise
 
---end               <point>     define the finish point, where <point> is a positive integer representing the <point>-th vertex of the graph | default: last vertex for <path_finder_algorithm>=a-star ; undefined otherwise
+--end               <point>     define the finish point, where <point> is a positive integer representing the <point>-th vertex of the graph | default: last vertex for <map_type>=image ; undefined otherwise
 
 --time              <time>      set the execution time between each vertex (<time> minimum value: 1, maximum value: 20000) | default: 10ms
 
@@ -59,11 +59,11 @@ a-star              use A* algorithm on this map
 
 --end-color         <color>     set the finish point vertex color to <color>, where <color> is a hexadecimal color code | default: #19A3FF
 
---previous-color    <color>     set the previous path color to <color> for the animation, where <color> is a hexadecimal color code | default: #FF9C19
+--previous-color    <color>     set the previous path color to <color> for the animation (search path), where <color> is a hexadecimal color code | default: #FF9C19
 
 --current-color     <color>     set the current vertex color to <color> for the animation, where <color> is a hexadecimal color code | default: #8E09DB
 
---path-color        <color>     set the (final) path color to <color>, where <color> is a hexadecimal color code | default: #FF19A7
+--path-color        <color>     set the (final, shortest) path color to <color>, where <color> is a hexadecimal color code | default: #FF19A7
 
 --heuristic       <heuristic>   define the heuristic (can only be used if <path_finder_algorithm>=a-star), where <heuristic> includes [chebyshev, octile, euclidean] for <map_type>=config and [manhattan] for <map_type>=image | default: chebyshev if <map_type>=config ; manhattan if <map_type>=image
 
