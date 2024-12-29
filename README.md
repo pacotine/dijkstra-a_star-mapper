@@ -111,7 +111,7 @@ A\* algorithm on a complex map (you can find its configuration file [here](asset
 java -jar dijkstra-a_star-mapper.jar config a-star assets/examples/test.txt --path-color "#FF0000" --current-color "#FF00FF" --previous-color "#000000" --heuristic octile
 ```
 
-*world_a-star video*
+https://github.com/user-attachments/assets/93c9ff75-fb7b-4d32-97cc-81f2526858e8
 
 And Dijkstra's algorithm on the same map.
 
@@ -120,7 +120,7 @@ And Dijkstra's algorithm on the same map.
 java -jar dijkstra-a_star-mapper.jar config dijkstra assets/examples/test.txt --path-color "#FF0000" --current-color "#FF00FF" --previous-color "#000000"
 ```
 
-*world_dijkstra video*
+https://github.com/user-attachments/assets/4d3fdf05-7d92-47e8-bc22-cbf2bef74e59
 
 #### Heart
 Plain text color names (`red`, `green`, etc.) and color codes in hexadecimal format (`#FF1EA3`, `222`) are supported. 
@@ -131,7 +131,7 @@ This makes your maps even more *beautiful*, like this heart (configuration file 
 java -jar dijkstra-a_star-mapper.jar config a-star assets/examples/heart.txt --path-color "#00FF00" --current-color "#000000" --previous-color "#ABC000" --time 250 --start-color "#FFFFFF"
 ```
 
-*heart video*
+https://github.com/user-attachments/assets/7cfa70e1-d3eb-4800-a17a-a2fd6e113002
 
 #### Maze
 A* algorithm is more suitable for mazes than Dijkstra, as it has a heuristic that doesn't overestimate distance 
@@ -148,7 +148,9 @@ java -jar dijkstra-a_star-mapper.jar config dijkstra assets/examples/maze.txt --
  java -jar dijkstra-a_star-mapper.jar config a-star assets/examples/maze.txt --delay 3000 --time 25 --path-color "#FF0000" --heuristic chebyshev
 ```
 
-*maze_chebyshev & maze_dijkstra videos*
+https://github.com/user-attachments/assets/3a2729a0-4cf9-4ef8-8733-4ddc992c2b79
+
+https://github.com/user-attachments/assets/fa36e2b5-78d3-4027-8160-faa3171d1c36
 
 ### Image-map reader
 #### Mona Lisa
@@ -164,7 +166,7 @@ java -jar dijkstra-a_star-mapper.jar image a-star assets/examples/mona.png --no-
 ```
 Enjoy the result.
 
-*mona image*
+![](https://github.com/user-attachments/assets/e11bc5cc-5200-4ff8-87e3-5546194b4b72)
 
 #### Colors & Brightness
 The intensity difference between pixels is defined by the *brightness* value of a pixel. HSV/HSB brightness (or value) term is defined as an "attribute of a visual sensation according to which an area appears to emit more or less light". In the image below, you can see that the intensity of brightness doesn't depend on the color, but on the luminous value of that color.\
@@ -185,7 +187,7 @@ A\*, using the Manhattan heuristic, finds the result (`8282.0`) within a short t
 java -jar dijkstra-a_star-mapper.jar image a-star assets/examples/cat.png --no-animation
 ```
 
-*cat image*
+![](https://github.com/user-attachments/assets/b7435aba-c8f9-4f7e-8519-8886a82e7982)
 
 It's advisable to use the `--no-animation` option for this kind of high-quality image, as you won't
 see much given the size of the pixels, and animation can take a very long time.
