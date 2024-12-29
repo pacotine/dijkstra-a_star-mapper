@@ -89,7 +89,7 @@ Metadata ara the values used to initialize and configure the map.
   The next lines will be a succession of keywords associated with integer numerical values, 
   followed by a color name just below. This is the configuration of the weight of each vertex
   (in more graphics and non-technicals terms, this represents the time it takes to traverse each
-  type of surface, such as water, earth, sand, etc., see a [surface example](assets/examples/test.txt)) and their associated color.
+  type of surface, such as water, earth, sand, etc., see a [surface example](assets/examples/world.txt)) and their associated color.
     - `[a-zA-Z] = integer` then, on the next line, the `color name` 
     (common english names and hexadecimal codes are both supported)
 - The second section is called `graph`. The $l$ lines following its declaration are the most important, as they provide
@@ -101,27 +101,54 @@ the very structure of the graph (i.e. the way the map will look).
   - `finish = xf,yf` with $x_f < l$, $y_f < c$ and $(x_f, y_f) \neq (x_s, y_s)$.
 
 ## Demo
-### Text-map reader
+*Please note that the paths given in the section are examples only.*
+### Text-map (configuration file) reader
 #### World
-A\* algorithm on a complex map (you can find its configuration file [here](assets/examples/test.txt))
+A\* algorithm on a complex map (you can find its configuration file [here](assets/examples/world.txt)).
 
-https://github.com/user-attachments/assets/58d5a5e9-87a7-4c41-80c3-213cd0fd3a35
+*Command:*
+```bash
+java -jar dijkstra-a_star-mapper.jar config a-star assets/examples/test.txt --path-color "#FF0000" --current-color "#FF00FF" --previous-color "#000000" --heuristic octile
+```
 
-And Dijkstra's algorithm on the same map
+*world_a-star video*
 
-https://github.com/user-attachments/assets/367f3c07-f325-4736-a7d8-758eead742d5
+And Dijkstra's algorithm on the same map.
+
+*Command:*
+```bash
+java -jar dijkstra-a_star-mapper.jar config dijkstra assets/examples/test.txt --path-color "#FF0000" --current-color "#FF00FF" --previous-color "#000000"
+```
+
+*world_dijkstra video*
 
 #### Heart
 Plain text color names (`red`, `green`, etc.) and color codes in hexadecimal format (`#FF1EA3`, `222`) are supported. 
 This makes your maps even more *beautiful*, like this heart (configuration file [here](assets/examples/heart.txt)).
 
-https://github.com/user-attachments/assets/f6b49658-d662-4d29-8f66-740b66b601ef
+*Command:*
+```bash
+java -jar dijkstra-a_star-mapper.jar config a-star assets/examples/heart.txt --path-color "#00FF00" --current-color "#000000" --previous-color "#ABC000" --time 250 --start-color "#FFFFFF"
+```
+
+*heart video*
 
 #### Maze
-A* algorithm is more suitable for mazes than Dijkstra, as it has a heuristic that doesn't overestimate distance (here, the heuristic chosen is Euclidean distance). 
-In fact, A* is an extension of Dijkstra's algorithm.
+A* algorithm is more suitable for mazes than Dijkstra, as it has a heuristic that doesn't overestimate distance 
+(here, the heuristic chosen is Chebyshev distance). 
+In fact, A* is an extension of Dijkstra's algorithm.\
+Configuration file [here](assets/examples/maze.txt).
 
-https://github.com/user-attachments/assets/585484d4-e688-4cba-9453-f8ae3cb53168
+*Command (for Dijkstra):*
+```bash
+java -jar dijkstra-a_star-mapper.jar config dijkstra assets/examples/maze.txt --delay 3000 --time 25 --path-color "#FF0000"
+```
+*Command (for A\*):*
+```bash
+ java -jar dijkstra-a_star-mapper.jar config a-star assets/examples/maze.txt --delay 3000 --time 25 --path-color "#FF0000" --heuristic chebyshev
+```
+
+*maze_chebyshev & maze_dijkstra videos*
 
 ### Image-map reader
 #### Mona Lisa
@@ -131,13 +158,36 @@ Here you can see a black and white image of Mona Lisa (`256x387`) and A* algorit
 
 https://github.com/user-attachments/assets/65010f9a-74ff-49d5-a1f8-33c9fc8d2837
 
+*Command (for the result below):*
+```bash
+java -jar dijkstra-a_star-mapper.jar image a-star assets/examples/mona.png --no-animation --path-color "#FF0000"
+```
 Enjoy the result.
-![](https://github.com/user-attachments/assets/eb24148f-0a0b-4390-b344-5035d2a03f67)
+
+*mona image*
 
 #### Colors & Brightness
 The intensity difference between pixels is defined by the *brightness* value of a pixel. HSV/HSB brightness (or value) term is defined as an "attribute of a visual sensation according to which an area appears to emit more or less light". In the image below, you can see that the intensity of brightness doesn't depend on the color, but on the luminous value of that color.\
 The darker blue at bottom left will have a higher (vertex) value than the lighter blue at top right, which is why the path found is this one. 
 
+*Command:*
+```bash
+java -jar dijkstra-a_star-mapper.jar image a-star assets/examples/16x16.png --current-color "#00FF00" --previous-color "#FFFF00" --path-color "#FF0000"
+```
 ![](https://github.com/user-attachments/assets/d7ad75d9-00fd-4c44-951a-f801d652121a)
+
+#### Cat
+The application can handle very high quality images, such as this one of a cat at `1000x600`.
+A\*, using the Manhattan heuristic, finds the result (`8282.0`) within a short time.
+
+*Command:*
+```bash
+java -jar dijkstra-a_star-mapper.jar image a-star assets/examples/cat.png --no-animation
+```
+
+*cat image*
+
+It's advisable to use the `--no-animation` option for this kind of high-quality image, as you won't
+see much given the size of the pixels, and animation can take a very long time.
 
 
