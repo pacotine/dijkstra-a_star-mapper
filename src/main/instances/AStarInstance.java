@@ -36,6 +36,8 @@ public class AStarInstance extends PathFinderInstance {
         delays.clear();
         path.clear();
 
+        final int ex = end.getN() % mapSize;
+        final int ey = end.getN() / mapSize;
         List<WeightedGraph.Vertex> open = new ArrayList<>();
         open.add(start);
 
@@ -45,7 +47,7 @@ public class AStarInstance extends PathFinderInstance {
             v.setTimeFromSource(Double.POSITIVE_INFINITY);
         }
         start.setTimeFromSource(0.0);
-        f.replace(start, 0.0);
+        f.replace(start, heuristic.h(start.getN()%mapSize, start.getN()/mapSize, ex, ey));
 
         int i = 0;
         while(!open.contains(end)) {
@@ -57,11 +59,9 @@ public class AStarInstance extends PathFinderInstance {
 
             open.remove(u);
             for(WeightedGraph.Vertex neighbor : u.getNeighbors()) {
-                int x1 = u.getN() % mapSize;
-                int y1 = u.getN() / mapSize;
-                int x2 = end.getN() % mapSize;
-                int y2 = end.getN() / mapSize;
-                double dist = heuristic.h(x1,y1,x2,y2);
+                int nx = neighbor.getN() % mapSize;
+                int ny = neighbor.getN() / mapSize;
+                double dist = heuristic.h(nx,ny,ex,ey);
                 double factor = u.getDiagonalNeighbors().contains(neighbor) ? Math.sqrt(2) : 2.0;
                 double weight = (double)(neighbor.getType().value() + u.getType().value())/factor;
 
