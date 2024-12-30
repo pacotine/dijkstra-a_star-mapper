@@ -180,7 +180,7 @@ java -jar dijkstra-a_star-mapper.jar image a-star assets/examples/16x16.png --cu
 
 #### Cat
 The application can handle very high quality images, such as this one of a cat at `1000x600`.
-A\*, using the Manhattan heuristic, finds the result (`8282.0`) within a short time.
+A\*, using the Manhattan heuristic, finds the result (`8289.0`) within a short time.
 
 *Command:*
 ```bash
