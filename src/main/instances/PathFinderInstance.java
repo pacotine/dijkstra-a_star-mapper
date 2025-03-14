@@ -45,6 +45,7 @@ public abstract class PathFinderInstance {
      *
      * @param start the starting vertex
      * @param end the ending vertex
+     * @param verbose whether logs should be output
      */
     protected void retrievePath(WeightedGraph.Vertex start, WeightedGraph.Vertex end, boolean verbose) {
         if(verbose) System.out.println("\n\nfinal path (from the end to the beginning):");
@@ -62,6 +63,7 @@ public abstract class PathFinderInstance {
      *
      * @param start the starting vertex
      * @param end the ending vertex
+     * @param verbose whether logs should be output
      * @return the total cost of the shortest path
      */
     public abstract double searchPath(WeightedGraph.Vertex start, WeightedGraph.Vertex end, boolean verbose);

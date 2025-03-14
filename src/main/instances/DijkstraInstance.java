@@ -24,6 +24,7 @@ public class DijkstraInstance extends PathFinderInstance {
      *
      * @param start the starting vertex
      * @param end the ending vertex
+     * @param verbose whether logs should be output
      * @return the total cost of the shortest path
      */
     @Override
