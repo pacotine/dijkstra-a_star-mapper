@@ -68,6 +68,8 @@ a-star              use A* algorithm on this map
 --heuristic       <heuristic>   define the heuristic (can only be used if <path_finder_algorithm>=a-star), where <heuristic> includes [chebyshev, octile, euclidean] for <map_type>=config and [manhattan] for <map_type>=image | default: chebyshev if <map_type>=config ; manhattan if <map_type>=image
 
 
+--verbose                       log each step of the path finder algorithm and print the graph
+            
 --no-animation                  deactivate search animation before displaying the path found
 ```
 You can also display this documentation with the following command:
@@ -108,7 +110,7 @@ A\* algorithm on a complex map (you can find its configuration file [here](asset
 
 *Command:*
 ```bash
-java -jar dijkstra-a_star-mapper.jar config a-star assets/examples/test.txt --path-color "#FF0000" --current-color "#FF00FF" --previous-color "#000000" --heuristic octile
+java -jar dijkstra-a_star-mapper.jar config a-star assets/examples/world.txt --path-color "#FF0000" --current-color "#FF00FF" --previous-color "#000000" --heuristic octile
 ```
 
 https://github.com/user-attachments/assets/93c9ff75-fb7b-4d32-97cc-81f2526858e8
@@ -117,7 +119,7 @@ And Dijkstra's algorithm on the same map.
 
 *Command:*
 ```bash
-java -jar dijkstra-a_star-mapper.jar config dijkstra assets/examples/test.txt --path-color "#FF0000" --current-color "#FF00FF" --previous-color "#000000"
+java -jar dijkstra-a_star-mapper.jar config dijkstra assets/examples/world.txt --path-color "#FF0000" --current-color "#FF00FF" --previous-color "#000000"
 ```
 
 https://github.com/user-attachments/assets/4d3fdf05-7d92-47e8-bc22-cbf2bef74e59
