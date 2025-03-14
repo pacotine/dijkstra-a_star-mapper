@@ -40,6 +40,7 @@ public class Map extends JComponent {
     private Color startVertexColor;
     private Color endVertexColor;
     private boolean showAnimation;
+    private boolean verbose;
     private final Configuration configuration;
 
     /**
@@ -180,6 +181,7 @@ public class Map extends JComponent {
         this.timer = (int) configuration.get(Field.Type.TIME).getValue();
 
         this.showAnimation = (boolean) configuration.get(Field.Type.SHOW_ANIMATION).getValue();
+        this.verbose = (boolean) configuration.get(Field.Type.VERBOSE).getValue();
 
         PointField startField = (PointField) configuration.get(Field.Type.START);
         if(startField != null) this.start = this.graph.getVertices().get(startField.getValue());
@@ -195,7 +197,7 @@ public class Map extends JComponent {
     private void showPathFinder(PathFinderInstance pathFinderInstance) {
         if(this.graph == null) return;
 
-        double pathTime = pathFinderInstance.searchPath(start, end);
+        double pathTime = pathFinderInstance.searchPath(start, end, verbose);
         HashMap<Integer, WeightedGraph.Vertex> delays = pathFinderInstance.getDelays();
         List<WeightedGraph.Vertex> path = pathFinderInstance.getPath();
 

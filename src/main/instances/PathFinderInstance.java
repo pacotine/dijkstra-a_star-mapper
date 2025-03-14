@@ -46,10 +46,11 @@ public abstract class PathFinderInstance {
      * @param start the starting vertex
      * @param end the ending vertex
      */
-    protected void retrievePath(WeightedGraph.Vertex start, WeightedGraph.Vertex end) {
+    protected void retrievePath(WeightedGraph.Vertex start, WeightedGraph.Vertex end, boolean verbose) {
+        if(verbose) System.out.println("\n\nfinal path (from the end to the beginning):");
         WeightedGraph.Vertex s = end;
         while(s != start) {
-            //System.out.println(s);
+            if(verbose) System.out.println(s);
             path.add(s);
             s = s.getPrevious();
         }
@@ -63,5 +64,5 @@ public abstract class PathFinderInstance {
      * @param end the ending vertex
      * @return the total cost of the shortest path
      */
-    public abstract double searchPath(WeightedGraph.Vertex start, WeightedGraph.Vertex end);
+    public abstract double searchPath(WeightedGraph.Vertex start, WeightedGraph.Vertex end, boolean verbose);
 }

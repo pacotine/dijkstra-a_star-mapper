@@ -18,6 +18,7 @@ public class Configuration {
     private static final ColorField DEFAULT_START_VERTEX_COLOR = new ColorField("#FF194F");
     private static final ColorField DEFAULT_END_VERTEX_COLOR = new ColorField("#19A3FF");
     private static final BooleanValueField DEFAULT_SHOW_ANIMATION = new BooleanValueField(true);
+    private static final BooleanValueField DEFAULT_VERBOSE = new BooleanValueField(false);
 
     private final Map<Field.Type, Field<?>> values;
 
@@ -66,6 +67,7 @@ public class Configuration {
         defaultConfig.put(Field.Type.START_VERTEX_COLOR, DEFAULT_START_VERTEX_COLOR);
         defaultConfig.put(Field.Type.END_VERTEX_COLOR, DEFAULT_END_VERTEX_COLOR);
         defaultConfig.put(Field.Type.SHOW_ANIMATION, DEFAULT_SHOW_ANIMATION);
+        defaultConfig.put(Field.Type.VERBOSE, DEFAULT_VERBOSE);
 
         return defaultConfig;
     }

@@ -32,7 +32,7 @@ public class AStarInstance extends PathFinderInstance {
      * @return the total cost of the shortest path
      */
     @Override
-    public double searchPath(WeightedGraph.Vertex start, WeightedGraph.Vertex end) {
+    public double searchPath(WeightedGraph.Vertex start, WeightedGraph.Vertex end, boolean verbose) {
         delays.clear();
         path.clear();
 
@@ -52,6 +52,7 @@ public class AStarInstance extends PathFinderInstance {
         int i = 0;
         while(!open.contains(end)) {
             WeightedGraph.Vertex u = findMinF(open, f);
+            if(verbose) System.out.println("selecting the vertex with the minimum f-score: " + u);
 
             WeightedGraph.Vertex temp = new WeightedGraph.Vertex(u.getN(), u.getType());
             temp.setPrevious(u.getPrevious()); //keeping the previous vertex at time i with shallow copy
@@ -69,6 +70,7 @@ public class AStarInstance extends PathFinderInstance {
                 if(tentative < neighbor.getTimeFromSource()) {
                     neighbor.setPrevious(u);
                     neighbor.setTimeFromSource(tentative);
+                    if(verbose) System.out.println("update neighbor " + neighbor.getN() + " f-score: " + tentative+dist);
                     f.replace(neighbor, tentative+dist);
                     if(!open.contains(neighbor)) open.add(neighbor);
                 }
@@ -76,7 +78,7 @@ public class AStarInstance extends PathFinderInstance {
             i++;
         }
 
-        retrievePath(start, end);
+        retrievePath(start, end, verbose);
         return end.getTimeFromSource();
     }
 

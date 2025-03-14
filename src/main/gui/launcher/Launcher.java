@@ -61,6 +61,8 @@ public class Launcher {
             --heuristic       <heuristic>   define the heuristic (can only be used if <path_finder_algorithm>=a-star), where <heuristic> includes [chebyshev, octile, euclidean] for <map_type>=config and [manhattan] for <map_type>=image | default: chebyshev if <map_type>=config ; manhattan if <map_type>=image
             
             
+            --verbose                       log each step of the path finder algorithm and print the graph
+            
             --no-animation                  deactivate search animation before displaying the path found
             """, Main.getVersionFromManifest());
 
@@ -249,6 +251,7 @@ public class Launcher {
                          CURRENT_VERTEX_COLOR,
                          PATH_COLOR -> new ColorField(args[++i]);
                     case SHOW_ANIMATION -> new BooleanValueField(false);
+                    case VERBOSE -> new BooleanValueField(true);
                 };
                 if(field.isValueValid()) configuration.set(type, field);
                 else throw new IllegalArgumentException("value '" + field.getValue() + "' is invalid for option '" + type + "'");

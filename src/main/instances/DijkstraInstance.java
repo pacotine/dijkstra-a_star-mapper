@@ -27,7 +27,7 @@ public class DijkstraInstance extends PathFinderInstance {
      * @return the total cost of the shortest path
      */
     @Override
-    public double searchPath(WeightedGraph.Vertex start, WeightedGraph.Vertex end) {
+    public double searchPath(WeightedGraph.Vertex start, WeightedGraph.Vertex end, boolean verbose) {
         delays.clear();
         path.clear();
 
@@ -47,7 +47,7 @@ public class DijkstraInstance extends PathFinderInstance {
                     " up to ~" + (1.0-(double)i/(double)this.graph.getVertices().size())*100.0 + "% remaining"); //max n
             WeightedGraph.Vertex u = findMin(Q);
             delays.put(i, u);
-            //System.out.println("min : " + u);
+            if(verbose) System.out.println("selecting the vertex with the minimum weight: " + u);
             Q.remove(u);
             for(WeightedGraph.Vertex neighbor : u.getNeighbors()) {
                 double neighborTime = neighbor.getTimeFromSource();
@@ -55,7 +55,7 @@ public class DijkstraInstance extends PathFinderInstance {
                 double factor = u.getDiagonalNeighbors().contains(neighbor) ? Math.sqrt(2) : 2.0;
                 double weight = (double)(neighbor.getType().value() + u.getType().value())/factor;
                 if(neighborTime > currentTime + weight) {
-                    //System.out.println("update : (" + neighbor.getType().value() + "+" + u.getType().value() + ")/2 = " + weight);
+                    if(verbose) System.out.println("update neighbor value: (" + neighbor.getType().value() + "+" + u.getType().value() + ")/2 = " + weight);
                     neighbor.setTimeFromSource(currentTime+weight);
                     neighbor.setPrevious(u);
                 }
@@ -63,7 +63,7 @@ public class DijkstraInstance extends PathFinderInstance {
             i++;
         }
 
-        retrievePath(start, end);
+        retrievePath(start, end, verbose);
         return end.getTimeFromSource();
     }
 

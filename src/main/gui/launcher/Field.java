@@ -30,7 +30,8 @@ public abstract class Field<T> {
         PREVIOUS_PATH_COLOR("--previous-color", ALL_MAP_TYPES),
         CURRENT_VERTEX_COLOR("--current-color", ALL_MAP_TYPES),
         PATH_COLOR("--path-color", ALL_MAP_TYPES),
-        SHOW_ANIMATION("--no-animation", ALL_MAP_TYPES);
+        SHOW_ANIMATION("--no-animation", ALL_MAP_TYPES),
+        VERBOSE("--verbose", ALL_MAP_TYPES);
 
         private final String arg;
         private final Set<Launcher.MapArgument> types;
